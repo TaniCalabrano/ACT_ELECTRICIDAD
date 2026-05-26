@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAES Física — Electricidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{--bg:#07080f;--surface:#0d1017;--surface2:#131825;--surface3:#1a2235;--border:#1e2d45;--border2:#243550;--cyan:#00e5ff;--amber:#ffb700;--green:#00ff94;--red:#ff4757;--purple:#9b5de5;--orange:#ff8c42;--text:#e8eaf0;--text-muted:#7a8ba8;--text-dim:#3d5270;--font-display:'Syne',sans-serif;--font-mono:'Space Mono',monospace;--font-body:'DM Sans',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.75;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:40px 40px;opacity:0.22;pointer-events:none;z-index:0}
+.hero{position:relative;z-index:10;padding:80px 40px 60px;text-align:center;border-bottom:1px solid var(--border);background:radial-gradient(ellipse 900px 500px at 50% 0%,rgba(0,229,255,.07) 0%,transparent 70%)}
+.hero-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.25em;color:var(--cyan);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:12px}
+.hero-label::before,.hero-label::after{content:'';height:1px;width:60px}
+.hero-label::before{background:linear-gradient(90deg,transparent,var(--cyan))}
+.hero-label::after{background:linear-gradient(90deg,var(--cyan),transparent)}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.8rem,6vw,5.5rem);font-weight:800;line-height:.95;letter-spacing:-.02em;margin-bottom:24px}
+.hero h1 .ac{color:var(--cyan)}.hero h1 .am{color:var(--amber)}
+.hero-sub{font-size:16px;color:var(--text-muted);max-width:600px;margin:0 auto 36px}
+.oa-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.oa-badge{font-family:var(--font-mono);font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--border2);color:var(--amber);background:rgba(255,183,0,.05);letter-spacing:.05em}
+.nav{position:sticky;top:0;z-index:100;background:rgba(7,8,15,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;justify-content:center;gap:4px;padding:10px 16px;flex-wrap:wrap}
+.nav a{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;color:var(--text-muted);text-decoration:none;padding:6px 12px;border-radius:6px;transition:all .2s;border:1px solid transparent}
+.nav a:hover{color:var(--cyan);border-color:var(--border2);background:rgba(0,229,255,.05)}
+main{position:relative;z-index:10;max-width:1120px;margin:0 auto;padding:60px 24px 120px}
+.section{margin-bottom:90px}
+.section-header{display:flex;align-items:center;gap:16px;margin-bottom:36px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.section-num{font-family:var(--font-mono);font-size:11px;color:var(--cyan);letter-spacing:.15em}
+.section-title{font-family:var(--font-display);font-size:1.85rem;font-weight:700;letter-spacing:-.02em}
+.section-oa{margin-left:auto;font-family:var(--font-mono);font-size:11px;color:var(--amber);background:rgba(255,183,0,.08);border:1px solid rgba(255,183,0,.2);padding:4px 10px;border-radius:4px}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.content-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:24px}
+@media(max-width:720px){.content-grid,.content-grid-3{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),transparent);opacity:.6}
+.card.amber::before{background:linear-gradient(90deg,var(--amber),transparent)}
+.card.green::before{background:linear-gradient(90deg,var(--green),transparent)}
+.card.purple::before{background:linear-gradient(90deg,var(--purple),transparent)}
+.card.red::before{background:linear-gradient(90deg,var(--red),transparent)}
+.card.full{grid-column:1/-1}
+.card-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px}
+.card.amber .card-label{color:var(--amber)}.card.green .card-label{color:var(--green)}.card.purple .card-label{color:var(--purple)}.card.red .card-label{color:var(--red)}
+.card h3{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:12px}
+.card p,.card li{color:var(--text-muted);font-size:14px;line-height:1.75}
+.card ul{padding-left:18px}.card li{margin-bottom:7px}
+.formula-box{background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:18px 24px;margin:14px 0;text-align:center;font-size:1.1em;overflow-x:auto}
+.formula-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:14px 0}
+.formula-pill{background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:10px 18px;font-size:1em;text-align:center}
+.formula-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px}
+.formula-table th{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);padding:8px 12px;border-bottom:1px solid var(--border);text-align:left}
+.formula-table td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text-muted);vertical-align:top}
+.formula-table td:first-child{color:var(--cyan);font-family:var(--font-mono);font-size:11px}
+.formula-table tr:last-child td{border-bottom:none}
+.def-block{display:flex;gap:16px;margin-bottom:14px;align-items:flex-start}
+.def-icon{min-width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--surface2);border:1px solid var(--border2)}
+.def-body h4{font-family:var(--font-display);font-size:.95rem;font-weight:700;margin-bottom:3px}
+.def-body p{font-size:13px;color:var(--text-muted)}
+.simulator{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;margin-top:24px;position:relative;overflow:hidden}
+.sim-badge{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;padding:4px 10px;border-radius:4px;background:rgba(0,229,255,.1);color:var(--cyan);border:1px solid rgba(0,229,255,.2);display:inline-block;margin-bottom:14px}
+.sim-title{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:20px}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;margin-bottom:22px}
+.control-group label{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--cyan);margin-bottom:8px;text-transform:uppercase}
+.control-group input[type="range"]{-webkit-appearance:none;width:100%;height:4px;border-radius:2px;background:var(--border2);outline:none;margin-bottom:8px}
+.control-group input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--cyan);cursor:pointer;box-shadow:0 0 10px rgba(0,229,255,.5)}
+.control-value{font-family:var(--font-mono);font-size:1.3rem;font-weight:700;color:var(--text)}
+.control-unit{font-size:.7rem;color:var(--text-muted);margin-left:4px}
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:18px}
+.result-card{background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:14px;text-align:center}
+.result-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--text-muted);text-transform:uppercase;margin-bottom:7px}
+.result-value{font-family:var(--font-mono);font-size:1.35rem;font-weight:700;color:var(--cyan)}
+.result-value.amber{color:var(--amber)}.result-value.green{color:var(--green)}.result-value.red{color:var(--red)}.result-value.purple{color:var(--purple)}
+.result-unit{font-size:.75rem;color:var(--text-muted)}
+.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:12px;flex-wrap:wrap}
+.tab{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;padding:6px 14px;border-radius:6px;border:1px solid transparent;color:var(--text-muted);cursor:pointer;transition:all .2s;background:none}
+.tab.active{color:var(--cyan);border-color:var(--border2);background:rgba(0,229,255,.07)}
+.tab-content{display:none}.tab-content.active{display:block}
+.question-block{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:18px;position:relative}
+.question-block::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;background:var(--purple)}
+.question-num{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;color:var(--purple);margin-bottom:10px}
+.question-text{font-size:14px;color:var(--text);line-height:1.75;margin-bottom:16px}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{display:flex;align-items:flex-start;gap:12px;padding:10px 16px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all .2s;font-size:13px}
+.option:hover{border-color:var(--border2);background:var(--surface2)}
+.option.correct{border-color:var(--green);background:rgba(0,255,148,.06);color:var(--green)}
+.option.wrong{border-color:var(--red);background:rgba(255,71,87,.06);color:var(--red)}
+.option-letter{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);min-width:20px;padding-top:2px}
+.explanation{margin-top:14px;padding:14px;background:var(--surface2);border-radius:8px;border-left:3px solid var(--green);font-size:13px;color:var(--text-muted);display:none}
+.explanation.show{display:block}
+.progress-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:6px}
+.progress-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .5s ease}
+.alert{padding:12px 16px;border-radius:8px;border-left:3px solid var(--amber);background:rgba(255,183,0,.05);font-size:13px;color:var(--text-muted);margin:14px 0}
+.alert.green{border-color:var(--green);background:rgba(0,255,148,.05)}
+.alert.red{border-color:var(--red);background:rgba(255,71,87,.05)}
+.alert.cyan{border-color:var(--cyan);background:rgba(0,229,255,.05)}
+.alert strong{color:var(--amber)}.alert.green strong{color:var(--green)}.alert.red strong{color:var(--red)}.alert.cyan strong{color:var(--cyan)}
+.glossary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:8px}
+.gloss-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;transition:border-color .2s}
+.gloss-item:hover{border-color:var(--border2)}
+.gloss-term{font-family:var(--font-display);font-weight:700;font-size:1rem;margin-bottom:4px;color:var(--cyan)}
+.gloss-unit{font-family:var(--font-mono);font-size:10px;color:var(--amber);margin-bottom:8px;letter-spacing:.1em}
+.gloss-def{font-size:13px;color:var(--text-muted);line-height:1.65}
+.energy-meter{display:flex;align-items:center;gap:12px;margin-top:12px}
+.energy-bar-track{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.energy-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--amber),var(--red));transition:width .3s ease}
+canvas{display:block;width:100%;border-radius:10px;background:var(--surface2);border:1px solid var(--border)}
+.katex{font-size:1.1em!important;color:var(--text)!important}
+.katex-display{overflow-x:auto;overflow-y:hidden;padding:4px 0}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+.step-list{counter-reset:steps;list-style:none;padding:0}
+.step-list li{counter-increment:steps;display:flex;gap:14px;margin-bottom:14px;font-size:14px;color:var(--text-muted);align-items:flex-start}
+.step-list li::before{content:counter(steps);font-family:var(--font-mono);font-size:11px;min-width:24px;height:24px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--cyan);flex-shrink:0;margin-top:2px}
+.comp-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.comp-table th{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:10px 14px;border-bottom:2px solid var(--border2);text-align:left}
+.comp-table th:nth-child(2){color:var(--purple)}.comp-table th:nth-child(3){color:var(--cyan)}
+.comp-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text-muted)}
+.comp-table td:first-child{font-family:var(--font-mono);font-size:11px;color:var(--text-dim)}
+.comp-table tr:last-child td{border-bottom:none}.comp-table tr:hover td{background:var(--surface2)}
+.highlight{background:linear-gradient(135deg,rgba(0,229,255,.06),rgba(155,93,229,.06));border:1px solid var(--border2);border-radius:12px;padding:20px 24px;margin:18px 0}
+.highlight h4{font-family:var(--font-display);font-weight:700;font-size:1rem;margin-bottom:8px;color:var(--cyan)}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:20px 0}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-label">PAES Física · Módulo Electivo</div>
+  <h1><span class="ac">Electri</span><br><span class="am">cidad</span></h1>
+  <p class="hero-sub">Dominio total OA24–OA31. De los conceptos más básicos a los más avanzados, con notación matemática formal, explicaciones detalladas y simuladores interactivos.</p>
+  <div class="oa-badges">
+    <span class="oa-badge">OA24 · Conceptos Fundamentales</span>
+    <span class="oa-badge">OA25 · Ley de Ohm</span>
+    <span class="oa-badge">OA26 · Potencia</span>
+    <span class="oa-badge">OA27 · DEMRE Circuitos</span>
+    <span class="oa-badge">OA28 · Corriente</span>
+    <span class="oa-badge">OA29 · Consumo Energético</span>
+    <span class="oa-badge">OA30 · Instalación Domiciliaria</span>
+    <span class="oa-badge">OA31 · DEMRE Cualitativo</span>
+  </div>
+</section>
+<nav class="nav">
+  <a href="#s1">Carga</a><a href="#s2">Campo</a><a href="#s3">Corriente</a>
+  <a href="#s4">Ley de Ohm</a><a href="#s5">Circuitos</a><a href="#s6">Potencia</a>
+  <a href="#s7">Consumo</a><a href="#s8">Instalación</a><a href="#s9">Práctica PAES</a><a href="#s10">Glosario</a>
+</nav>
+<main>
+
+<!-- S1 CARGA ELÉCTRICA -->
+<section class="section" id="s1">
+  <div class="section-header"><span class="section-num">01 —</span><h2 class="section-title">Carga Eléctrica</h2><span class="section-oa">OA24</span></div>
+  <div class="content-grid">
+    <div class="card">
+      <div class="card-label">¿Qué es la carga eléctrica?</div><h3>Definición fundamental</h3>
+      <p>La <strong style="color:var(--cyan)">carga eléctrica</strong> es una propiedad intrínseca de ciertas partículas subatómicas que determina cómo interactúan con otras partículas a través de fuerzas electromagnéticas. Es una cantidad escalar con signo.</p>
+      <div class="divider"></div>
+      <div class="def-block"><div class="def-icon">⚛</div><div class="def-body"><h4>Electrón</h4><p>Carga negativa: \(q_e = -1{,}6 \times 10^{-19}\,\text{C}\). Orbita el núcleo.</p></div></div>
+      <div class="def-block"><div class="def-icon">⚛</div><div class="def-body"><h4>Protón</h4><p>Carga positiva: \(q_p = +1{,}6 \times 10^{-19}\,\text{C}\). Está en el núcleo.</p></div></div>
+      <div class="def-block"><div class="def-icon">○</div><div class="def-body"><h4>Neutrón</h4><p>Sin carga: \(q_n = 0\). También está en el núcleo.</p></div></div>
+    </div>
+    <div class="card amber">
+      <div class="card-label">Unidad y Cuantización</div><h3>El Coulomb [C]</h3>
+      <p>La unidad de carga en el SI es el <strong style="color:var(--amber)">Coulomb (C)</strong>. La carga está cuantizada: solo puede existir en múltiplos enteros de la carga elemental \(e\).</p>
+      <div class="formula-box">$$q = n \cdot e \quad \text{donde } n \in \mathbb{Z}$$</div>
+      <p>Carga elemental: \(e = 1{,}6 \times 10^{-19}\,\text{C}\)</p>
+      <div class="alert"><strong>¡Atención!</strong> 1 Coulomb equivale a la carga de \(6{,}24 \times 10^{18}\) electrones. Es una cantidad enorme difícil de generar en un laboratorio.</div>
+      <div class="alert" style="border-color:var(--cyan);background:rgba(0,229,255,.05);margin-top:8px"><strong style="color:var(--cyan)">Ley de conservación:</strong> La carga total de un sistema aislado no cambia: \(\displaystyle\sum q_i = \text{constante}\)</div>
+    </div>
+    <div class="card full amber">
+      <div class="card-label">Ley de Coulomb — Análisis Completo</div><h3>Fuerza entre dos cargas puntuales</h3>
+      <div class="content-grid" style="margin:0">
+        <div>
+          <div class="formula-box" style="font-size:1.3em">$$F = k \, \frac{|q_1| \, |q_2|}{d^2}$$</div>
+          <table class="formula-table">
+            <thead><tr><th>Símbolo</th><th>Nombre</th><th>Unidad</th><th>Valor / Nota</th></tr></thead>
+            <tbody>
+              <tr><td>\(F\)</td><td>Fuerza eléctrica</td><td>Newton [N]</td><td>Siempre positiva (magnitud)</td></tr>
+              <tr><td>\(k\)</td><td>Constante de Coulomb</td><td>\(\dfrac{\text{N}\cdot\text{m}^2}{\text{C}^2}\)</td><td>\(9 \times 10^{9}\,\dfrac{\text{N}\cdot\text{m}^2}{\text{C}^2}\)</td></tr>
+              <tr><td>\(q_1, q_2\)</td><td>Cargas puntuales</td><td>Coulomb [C]</td><td>Valor absoluto en la fórmula</td></tr>
+              <tr><td>\(d\)</td><td>Distancia entre cargas</td><td>Metro [m]</td><td>Entre los centros de las cargas</td></tr>
+            </tbody>
+          </table>
+          <div class="alert" style="margin-top:12px"><strong>Signo de la fuerza:</strong> La fórmula solo da la magnitud. Si cargas iguales → <strong>repulsión</strong>. Si distintas → <strong>atracción</strong>.</div>
+        </div>
+        <div>
+          <p style="font-size:14px;color:var(--text-muted);margin-bottom:12px"><strong style="color:var(--amber)">Relación inversa al cuadrado:</strong> Es el punto más consultado en PAES. Cuando cambia la distancia:</p>
+          <table class="formula-table">
+            <thead><tr><th>Si \(d\) se...</th><th>\(F\) resultante</th></tr></thead>
+            <tbody>
+              <tr><td>duplica (\(\times 2\))</td><td>se divide por 4 (\(\div 4\))</td></tr>
+              <tr><td>triplica (\(\times 3\))</td><td>se divide por 9 (\(\div 9\))</td></tr>
+              <tr><td>multiplica por \(n\)</td><td>se divide por \(n^2\) (\(\div n^2\))</td></tr>
+              <tr><td>reduce a la mitad (\(\div 2\))</td><td>se cuadruplica (\(\times 4\))</td></tr>
+              <tr><td>reduce a un tercio (\(\div 3\))</td><td>se multiplica por 9 (\(\times 9\))</td></tr>
+            </tbody>
+          </table>
+          <div class="alert green" style="margin-top:12px"><strong>Demostración formal:</strong> Si \(d' = 2d\), entonces:<br>\(F' = k\dfrac{q_1 q_2}{(2d)^2} = k\dfrac{q_1 q_2}{4d^2} = \dfrac{F}{4}\)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="simulator">
+    <div class="sim-badge">SIMULADOR — LEY DE COULOMB</div>
+    <div class="sim-title">Visualizador de Fuerza en Tiempo Real</div>
+    <div class="controls">
+      <div class="control-group"><label>Carga \(q_1\) [μC]</label><input type="range" id="q1" min="-10" max="10" value="3" step="0.5"><span class="control-value" id="q1val" style="color:var(--red)">+3.0</span><span class="control-unit">μC</span></div>
+      <div class="control-group"><label>Carga \(q_2\) [μC]</label><input type="range" id="q2" min="-10" max="10" value="-5" step="0.5"><span class="control-value" id="q2val" style="color:var(--cyan)">−5.0</span><span class="control-unit">μC</span></div>
+      <div class="control-group"><label>Distancia \(d\) [m]</label><input type="range" id="dist" min="0.1" max="3" value="1" step="0.1"><span class="control-value" id="distval">1.0</span><span class="control-unit">m</span></div>
+    </div>
+    <canvas id="coulombCanvas" height="170"></canvas>
+    <div class="results-grid">
+      <div class="result-card"><div class="result-label">Fuerza [mN]</div><div class="result-value" id="forceVal">135.0</div><div class="result-unit">×10⁻³ N</div></div>
+      <div class="result-card"><div class="result-label">Tipo</div><div class="result-value" id="forceType" style="color:var(--cyan)">Atracción</div></div>
+      <div class="result-card"><div class="result-label">Si d × 2</div><div class="result-value amber">F ÷ 4</div></div>
+      <div class="result-card"><div class="result-label">Si d ÷ 2</div><div class="result-value purple">F × 4</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- S2 CAMPO ELÉCTRICO -->
+<section class="section" id="s2">
+  <div class="section-header"><span class="section-num">02 —</span><h2 class="section-title">Campo Eléctrico y Potencial</h2><span class="section-oa">OA24</span></div>
+  <div class="content-grid">
+    <div class="card">
+      <div class="card-label">Campo Eléctrico</div><h3>Definición y fórmula</h3>
+      <p>El <strong style="color:var(--cyan)">campo eléctrico</strong> \(\vec{E}\) es una perturbación del espacio generada por cargas. Indica la fuerza por unidad de carga que experimentaría una carga de prueba positiva \(q_0\) colocada en ese punto.</p>
+      <div class="formula-box">$$E = \frac{F}{q_0} = \frac{k \, |q|}{d^2}$$</div>
+      <table class="formula-table">
+        <thead><tr><th>Símbolo</th><th>Significado</th><th>Unidad</th></tr></thead>
+        <tbody>
+          <tr><td>\(E\)</td><td>Intensidad del campo</td><td>N/C = V/m</td></tr>
+          <tr><td>\(q_0\)</td><td>Carga de prueba</td><td>C (siempre +)</td></tr>
+          <tr><td>\(q\)</td><td>Carga que genera el campo</td><td>C</td></tr>
+          <tr><td>\(d\)</td><td>Distancia a la carga</td><td>m</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card purple">
+      <div class="card-label">Diferencia de Potencial (Voltaje)</div><h3>Energía por unidad de carga</h3>
+      <p>El <strong style="color:var(--purple)">voltaje</strong> (DDP o diferencia de potencial) es el trabajo realizado para mover una carga unitaria entre dos puntos:</p>
+      <div class="formula-box">$$V = \frac{W}{q} \quad \Leftrightarrow \quad W = q \cdot V$$</div>
+      <p style="font-size:13px;color:var(--text-muted)">Unidad: \(1\,\text{V} = 1\,\dfrac{\text{J}}{\text{C}}\)</p>
+      <div class="alert" style="margin-top:10px"><strong>Electronvolt:</strong> \(1\,\text{eV} = 1{,}6 \times 10^{-19}\,\text{J}\). Es la energía ganada por un electrón al pasar por una DDP de 1 V.</div>
+      <div class="def-block" style="margin-top:12px">
+        <div class="def-icon">→</div>
+        <div class="def-body"><h4>Líneas de campo</h4><p>Salen de cargas <strong style="color:var(--amber)">+</strong>, entran a cargas <strong style="color:var(--red)">−</strong>. Nunca se cruzan. Más densas = campo más intenso.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S3 CORRIENTE -->
+<section class="section" id="s3">
+  <div class="section-header"><span class="section-num">03 —</span><h2 class="section-title">Corriente Eléctrica</h2><span class="section-oa">OA28</span></div>
+  <div class="content-grid">
+    <div class="card">
+      <div class="card-label">Definición Formal</div><h3>Corriente como flujo de carga</h3>
+      <p>La <strong style="color:var(--cyan)">corriente eléctrica</strong> es la tasa de flujo de carga eléctrica a través de una sección del conductor por unidad de tiempo.</p>
+      <div class="formula-box" style="font-size:1.25em">$$I = \frac{\Delta q}{\Delta t}$$</div>
+      <table class="formula-table">
+        <thead><tr><th>Símbolo</th><th>Nombre</th><th>Unidad</th></tr></thead>
+        <tbody>
+          <tr><td>\(I\)</td><td>Intensidad de corriente</td><td>Ampere [A]</td></tr>
+          <tr><td>\(\Delta q\)</td><td>Carga que fluye</td><td>Coulomb [C]</td></tr>
+          <tr><td>\(\Delta t\)</td><td>Intervalo de tiempo</td><td>Segundo [s]</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:10px">Definición de 1 Ampere: \(1\,\text{A} = 1\,\dfrac{\text{C}}{\text{s}}\)</p>
+    </div>
+    <div class="card green">
+      <div class="card-label">Sentidos de la Corriente</div><h3>Convencional vs. Electrónica</h3>
+      <div class="alert green" style="margin-bottom:12px"><strong>¡Clave!</strong> Son sentidos opuestos. El que se usa en circuitos es el convencional.</div>
+      <div class="def-block"><div class="def-icon">→</div><div class="def-body"><h4>Corriente convencional</h4><p>Va del polo <strong style="color:var(--amber)">+</strong> al polo <strong style="color:var(--red)">−</strong> externamente. Es el sentido definido históricamente y usado en todos los cálculos de circuitos.</p></div></div>
+      <div class="def-block"><div class="def-icon">←</div><div class="def-body"><h4>Flujo real (electrones)</h4><p>Los electrones van del polo <strong style="color:var(--red)">−</strong> al polo <strong style="color:var(--amber)">+</strong>. Sentido contrario a la corriente convencional.</p></div></div>
+    </div>
+    <div class="card full">
+      <div class="card-label">CC vs CA — Tipos de Corriente</div>
+      <h3>Comparativa completa</h3>
+      <table class="comp-table">
+        <thead><tr><th>Característica</th><th>Corriente Continua (CC/DC)</th><th>Corriente Alterna (CA/AC)</th></tr></thead>
+        <tbody>
+          <tr><td>Dirección</td><td>Siempre la misma</td><td>Cambia periódicamente</td></tr>
+          <tr><td>Intensidad</td><td>Constante en el tiempo</td><td>Varía sinusoidalmente</td></tr>
+          <tr><td>Fuentes típicas</td><td>Pilas, baterías, paneles solares</td><td>Red eléctrica domiciliaria</td></tr>
+          <tr><td>Voltaje en Chile</td><td>Variable según dispositivo</td><td>\(220\,\text{V}\,/\,50\,\text{Hz}\)</td></tr>
+          <tr><td>Período</td><td>\(T \to \infty\) (no oscila)</td><td>\(T = 1/f = 1/50 = 0{,}02\,\text{s}\)</td></tr>
+          <tr><td>Uso principal</td><td>Electrónica, dispositivos portátiles</td><td>Artefactos del hogar, transmisión</td></tr>
+        </tbody>
+      </table>
+      <div class="formula-box" style="margin-top:14px">$$V_{\text{red Chile}} = 220\,\text{V} \qquad f = 50\,\text{Hz} \qquad T = \frac{1}{f} = \frac{1}{50} = 0{,}02\,\text{s}$$</div>
+    </div>
+    <div class="card full">
+      <div class="card-label">Conductores, Semiconductores y Aislantes</div>
+      <h3>Clasificación de materiales eléctricos</h3>
+      <div class="content-grid-3" style="margin:0">
+        <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:18px;border-top:2px solid var(--cyan)">
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--cyan);margin-bottom:8px">CONDUCTORES</div>
+          <p style="font-size:13px;color:var(--text-muted)">Electrones de valencia libres. Baja resistividad. Permiten el paso de corriente. Ej: cobre \(\rho_{\text{Cu}} = 1{,}7 \times 10^{-8}\,\Omega\cdot\text{m}\), plata, aluminio.</p>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:18px;border-top:2px solid var(--amber)">
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--amber);margin-bottom:8px">SEMICONDUCTORES</div>
+          <p style="font-size:13px;color:var(--text-muted)">Conductividad intermedia, varía con T, luz o dopado. Ej: Silicio (Si), Germanio (Ge). Base de transistores y circuitos integrados.</p>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:18px;border-top:2px solid var(--red)">
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--red);margin-bottom:8px">AISLANTES</div>
+          <p style="font-size:13px;color:var(--text-muted)">Sin electrones libres. Alta resistividad. No conducen. Ej: goma, PVC, vidrio, aire seco. Usados como recubrimiento de cables.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="simulator">
+    <div class="sim-badge">SIMULADOR — FLUJO DE ELECTRONES</div>
+    <div class="sim-title">Animación de corriente eléctrica y cálculo de carga</div>
+    <div class="controls">
+      <div class="control-group"><label>Corriente \(I\) [A]</label><input type="range" id="currentSlider" min="0.1" max="5" value="2" step="0.1"><span class="control-value" id="currentVal">2.0</span><span class="control-unit">A</span></div>
+      <div class="control-group"><label>Tiempo \(\Delta t\) [s]</label><input type="range" id="timeSlider" min="1" max="60" value="10" step="1"><span class="control-value" id="timeVal">10</span><span class="control-unit">s</span></div>
+    </div>
+    <canvas id="currentCanvas" height="140"></canvas>
+    <div class="results-grid">
+      <div class="result-card"><div class="result-label">Carga total \(\Delta q = I\cdot t\)</div><div class="result-value" id="chargeResult">20.0</div><div class="result-unit">C</div></div>
+      <div class="result-card"><div class="result-label">N° electrones</div><div class="result-value amber" id="electronCount">1.25×10²⁰</div></div>
+      <div class="result-card"><div class="result-label">Velocidad visual</div><div class="result-value green" id="currentSpeed">normal</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- S4 LEY DE OHM -->
+<section class="section" id="s4">
+  <div class="section-header"><span class="section-num">04 —</span><h2 class="section-title">Ley de Ohm y Resistencia</h2><span class="section-oa">OA25</span></div>
+  <div class="content-grid">
+    <div class="card">
+      <div class="card-label">La Ley Fundamental</div><h3>Relación entre V, I y R</h3>
+      <p>La <strong style="color:var(--cyan)">Ley de Ohm</strong> establece que la corriente en un conductor es directamente proporcional al voltaje aplicado e inversamente proporcional a su resistencia.</p>
+      <div class="formula-box" style="font-size:1.4em">$$V = I \cdot R$$</div>
+      <div class="formula-row">
+        <div class="formula-pill">$$I = \dfrac{V}{R}$$</div>
+        <div class="formula-pill">$$R = \dfrac{V}{I}$$</div>
+      </div>
+      <div class="alert cyan"><strong>Triángulo mnemotécnico:</strong> Escribe V arriba e I×R abajo. Tapa la variable que buscas con el dedo para ver la operación.</div>
+    </div>
+    <div class="card amber">
+      <div class="card-label">Resistencia y Resistividad</div><h3>¿De qué depende R?</h3>
+      <p>La <strong style="color:var(--amber)">resistencia eléctrica</strong> depende del material, la geometría del conductor y la temperatura:</p>
+      <div class="formula-box">$$R = \rho \cdot \frac{L}{A}$$</div>
+      <table class="formula-table">
+        <thead><tr><th>Símbolo</th><th>Nombre</th><th>Unidad</th><th>Efecto en R</th></tr></thead>
+        <tbody>
+          <tr><td>\(\rho\)</td><td>Resistividad</td><td>\(\Omega \cdot \text{m}\)</td><td>Mayor \(\rho\) → mayor R</td></tr>
+          <tr><td>\(L\)</td><td>Longitud</td><td>m</td><td>Mayor L → mayor R</td></tr>
+          <tr><td>\(A\)</td><td>Sección transversal</td><td>m²</td><td>Mayor A → menor R</td></tr>
+        </tbody>
+      </table>
+      <div class="alert" style="margin-top:10px"><strong>Temperatura:</strong> En metales, la resistividad aumenta con la temperatura. En semiconductores, disminuye.</div>
+    </div>
+    <div class="card full">
+      <div class="card-label">Materiales Óhmicos vs No Óhmicos</div>
+      <h3>Tipos de comportamiento eléctrico</h3>
+      <div class="content-grid" style="margin:0">
+        <div>
+          <div class="def-block"><div class="def-icon">📏</div><div class="def-body"><h4>Material óhmico</h4><p>R constante, independiente de V e I. Gráfica V vs I: recta por el origen. La pendiente es R. Ej: resistor metálico a T° constante.</p></div></div>
+          <div class="formula-box" style="font-size:.95em">$$\text{Material óhmico:} \quad \frac{\Delta V}{\Delta I} = R = \text{constante}$$</div>
+        </div>
+        <div>
+          <div class="def-block"><div class="def-icon">〰</div><div class="def-body"><h4>Material no óhmico</h4><p>R varía con V o I. Gráfica no lineal. Ej: diodo (conduce en una dirección), LED, filamento de tungsteno (R aumenta con T°).</p></div></div>
+          <div class="alert green" style="margin-top:10px"><strong>Lectura PAES:</strong> En gráfica V (eje Y) vs I (eje X), la pendiente es R. Recta más empinada = mayor R.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="simulator">
+    <div class="sim-badge">SIMULADOR — LEY DE OHM</div>
+    <div class="sim-title">Calculadora · Gráfica V–I · Resistividad de materiales</div>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab(event,'ohm','calc')">Calculadora</button>
+      <button class="tab" onclick="switchTab(event,'ohm','graph')">Gráfica V–I</button>
+      <button class="tab" onclick="switchTab(event,'ohm','resist')">Resistividad</button>
+    </div>
+    <div id="ohm-calc" class="tab-content active">
+      <div class="controls" style="grid-template-columns:repeat(3,1fr)">
+        <div class="control-group"><label>Voltaje \(V\)</label><input type="range" id="ohmV" min="0" max="24" value="12" step="0.5"><span class="control-value" id="ohmVval">12.0</span><span class="control-unit">V</span></div>
+        <div class="control-group"><label>Resistencia \(R\)</label><input type="range" id="ohmR" min="1" max="100" value="30" step="1"><span class="control-value" id="ohmRval">30</span><span class="control-unit">Ω</span></div>
+        <div class="control-group"><label style="color:var(--amber)">→ Corriente \(I\)</label><div style="height:28px"></div><span class="control-value amber" id="ohmIval">0.400</span><span class="control-unit">A</span></div>
+      </div>
+      <canvas id="ohmCircuitCanvas" height="180"></canvas>
+      <div class="results-grid">
+        <div class="result-card"><div class="result-label">Potencia \(P=VI\)</div><div class="result-value amber" id="ohmP">4.80</div><div class="result-unit">W</div></div>
+        <div class="result-card"><div class="result-label">Energía en 1 h</div><div class="result-value green" id="ohmE">17280</div><div class="result-unit">J</div></div>
+      </div>
+    </div>
+    <div id="ohm-graph" class="tab-content">
+      <div class="controls"><div class="control-group"><label>Resistencia \(R\) para la gráfica</label><input type="range" id="ohmRg" min="5" max="100" value="30" step="5"><span class="control-value" id="ohmRgval">30</span><span class="control-unit">Ω</span></div></div>
+      <canvas id="ohmGraphCanvas" height="280"></canvas>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:10px;text-align:center">La <strong style="color:var(--cyan)">pendiente</strong> de la recta V–I es igual a la resistencia R. Mayor R → recta más empinada.</p>
+    </div>
+    <div id="ohm-resist" class="tab-content">
+      <div class="controls">
+        <div class="control-group"><label>Longitud \(L\) [m]</label><input type="range" id="rL" min="0.1" max="10" value="1" step="0.1"><span class="control-value" id="rLval">1.0</span><span class="control-unit">m</span></div>
+        <div class="control-group"><label>Diámetro \(d\) [mm]</label><input type="range" id="rD" min="0.5" max="5" value="1" step="0.1"><span class="control-value" id="rDval">1.0</span><span class="control-unit">mm</span></div>
+      </div>
+      <div class="results-grid">
+        <div class="result-card"><div class="result-label">Sección \(A = \pi d^2/4\)</div><div class="result-value" id="rA">0.785</div><div class="result-unit">mm²</div></div>
+        <div class="result-card"><div class="result-label">R cobre</div><div class="result-value amber" id="rCu">0.0217</div><div class="result-unit">Ω</div></div>
+        <div class="result-card"><div class="result-label">R aluminio</div><div class="result-value green" id="rAl">0.0362</div><div class="result-unit">Ω</div></div>
+        <div class="result-card"><div class="result-label">R hierro</div><div class="result-value red" id="rFe">0.127</div><div class="result-unit">Ω</div></div>
+      </div>
+      <div class="alert cyan" style="margin-top:12px"><strong>Resistividades:</strong> Cobre: \(\rho = 1{,}7 \times 10^{-8}\,\Omega\cdot\text{m}\) · Aluminio: \(\rho = 2{,}82 \times 10^{-8}\,\Omega\cdot\text{m}\) · Hierro: \(\rho = 10^{-7}\,\Omega\cdot\text{m}\)</div>
+    </div>
+  </div>
+</section>
+
+<!-- S5 CIRCUITOS -->
+<section class="section" id="s5">
+  <div class="section-header"><span class="section-num">05 —</span><h2 class="section-title">Circuitos Eléctricos</h2><span class="section-oa">OA25 · OA27</span></div>
+  <div class="content-grid">
+    <div class="card">
+      <div class="card-label">Conexión en SERIE</div><h3>Una sola rama de corriente</h3>
+      <div class="formula-box">$$R_{eq} = R_1 + R_2 + \cdots + R_n = \sum_{k=1}^{n} R_k$$</div>
+      <table class="formula-table">
+        <thead><tr><th>Variable</th><th>Comportamiento en serie</th></tr></thead>
+        <tbody>
+          <tr><td>Corriente \(I\)</td><td>Igual en todos: \(I_1 = I_2 = \cdots = I_T\)</td></tr>
+          <tr><td>Voltaje \(V\)</td><td>Se suma: \(V_T = V_1 + V_2 + \cdots\)</td></tr>
+          <tr><td>\(R_{eq}\)</td><td>Mayor que la mayor individual</td></tr>
+          <tr><td>Fallo</td><td>Todo el circuito se interrumpe</td></tr>
+        </tbody>
+      </table>
+      <div class="alert"><strong>Divisor de voltaje:</strong> El voltaje en cada resistencia es proporcional a su R:<br>\(V_k = V_T \cdot \dfrac{R_k}{R_{eq}}\)</div>
+    </div>
+    <div class="card purple">
+      <div class="card-label">Conexión en PARALELO</div><h3>Varias ramas independientes</h3>
+      <div class="formula-box">$$\frac{1}{R_{eq}} = \frac{1}{R_1} + \frac{1}{R_2} + \cdots + \frac{1}{R_n}$$</div>
+      <div class="formula-box" style="font-size:.9em">$$\text{Para 2 resistencias:}\quad R_{eq} = \frac{R_1 \cdot R_2}{R_1 + R_2}$$</div>
+      <table class="formula-table">
+        <thead><tr><th>Variable</th><th>Comportamiento en paralelo</th></tr></thead>
+        <tbody>
+          <tr><td>Voltaje \(V\)</td><td>Igual en todos: \(V_1 = V_2 = \cdots = V_T\)</td></tr>
+          <tr><td>Corriente \(I\)</td><td>Se suma: \(I_T = I_1 + I_2 + \cdots\)</td></tr>
+          <tr><td>\(R_{eq}\)</td><td>Menor que la menor individual</td></tr>
+          <tr><td>Fallo</td><td>Los demás siguen funcionando</td></tr>
+        </tbody>
+      </table>
+      <div class="alert"><strong>Divisor de corriente:</strong> Mayor corriente va por menor R:<br>\(I_k = I_T \cdot \dfrac{R_{eq}}{R_k}\)</div>
+    </div>
+    <div class="card full">
+      <div class="card-label">Circuito Mixto — Estrategia paso a paso</div>
+      <h3>Método universal para resolver cualquier circuito</h3>
+      <ol class="step-list">
+        <li><strong>Identificar grupos:</strong> Localiza todas las resistencias en paralelo (mismos dos nodos).</li>
+        <li><strong>Calcular \(R_{eq}\) parcial:</strong> Para cada grupo paralelo, aplica \(\dfrac{1}{R_{par}} = \dfrac{1}{R_a} + \dfrac{1}{R_b}\)</li>
+        <li><strong>Simplificar:</strong> Reemplaza cada paralelo por su \(R_{eq}\). Ahora el circuito es solo serie.</li>
+        <li><strong>Calcular \(R_{eq}\) total:</strong> Suma todas las resistencias en serie resultantes.</li>
+        <li><strong>Corriente total:</strong> \(I_T = V_s / R_{eq\,\text{total}}\)</li>
+        <li><strong>Voltajes individuales:</strong> Usa \(V_k = I \cdot R_k\) para cada resistencia.</li>
+        <li><strong>Verificación:</strong> \(\sum V_{\text{serie}} = V_s\) y \(\sum I_{\text{paralelo}} = I_T\)</li>
+      </ol>
+    </div>
+  </div>
+  <div class="simulator">
+    <div class="sim-badge">SIMULADOR — CIRCUITOS COMPLETOS</div>
+    <div class="sim-title">Serie · Paralelo · Mixto — Análisis en tiempo real</div>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab(event,'circ','serie')">Serie</button>
+      <button class="tab" onclick="switchTab(event,'circ','paralelo')">Paralelo</button>
+      <button class="tab" onclick="switchTab(event,'circ','mixto')">Mixto</button>
+    </div>
+    <div id="circ-serie" class="tab-content active">
+      <div class="controls">
+        <div class="control-group"><label>Voltaje \(V_s\)</label><input type="range" id="sV" min="1" max="24" value="12" step="1"><span class="control-value" id="sVval">12</span><span class="control-unit">V</span></div>
+        <div class="control-group"><label>Resistencia \(R_1\)</label><input type="range" id="sR1" min="1" max="50" value="10" step="1"><span class="control-value" id="sR1val">10</span><span class="control-unit">Ω</span></div>
+        <div class="control-group"><label>Resistencia \(R_2\)</label><input type="range" id="sR2" min="1" max="50" value="20" step="1"><span class="control-value" id="sR2val">20</span><span class="control-unit">Ω</span></div>
+      </div>
+      <canvas id="serieCanvas" height="200"></canvas>
+      <div class="results-grid">
+        <div class="result-card"><div class="result-label">\(R_{eq}\)</div><div class="result-value" id="sReq">30</div><div class="result-unit">Ω</div></div>
+        <div class="result-card"><div class="result-label">\(I\) total</div><div class="result-value amber" id="sI">0.40</div><div class="result-unit">A</div></div>
+        <div class="result-card"><div class="result-label">\(V_1\)</div><div class="result-value green" id="sV1">4.00</div><div class="result-unit">V</div></div>
+        <div class="result-card"><div class="result-label">\(V_2\)</div><div class="result-value purple" id="sV2">8.00</div><div class="result-unit">V</div></div>
+        <div class="result-card"><div class="result-label">\(P_1\)</div><div class="result-value" id="sP1">1.60</div><div class="result-unit">W</div></div>
+        <div class="result-card"><div class="result-label">\(P_2\)</div><div class="result-value" id="sP2">3.20</div><div class="result-unit">W</div></div>
+      </div>
+    </div>
+    <div id="circ-paralelo" class="tab-content">
+      <div class="controls">
+        <div class="control-group"><label>Voltaje \(V_s\)</label><input type="range" id="pV" min="1" max="24" value="12" step="1"><span class="control-value" id="pVval">12</span><span class="control-unit">V</span></div>
+        <div class="control-group"><label>Resistencia \(R_1\)</label><input type="range" id="pR1" min="1" max="50" value="10" step="1"><span class="control-value" id="pR1val">10</span><span class="control-unit">Ω</span></div>
+        <div class="control-group"><label>Resistencia \(R_2\)</label><input type="range" id="pR2" min="1" max="50" value="20" step="1"><span class="control-value" id="pR2val">20</span><span class="control-unit">Ω</span></div>
+      </div>
+      <canvas id="paralCanvas" height="240"></canvas>
+      <div class="results-grid">
+        <div class="result-card"><div class="result-label">\(R_{eq}\)</div><div class="result-value" id="pReq">6.67</div><div class="result-unit">Ω</div></div>
+        <div class="result-card"><div class="result-label">\(I\) total</div><div class="result-value amber" id="pIt">1.80</div><div class="result-unit">A</div></div>
+        <div class="result-card"><div class="result-label">\(I_1\)</div><div class="result-value green" id="pI1">1.20</div><div class="result-unit">A</div></div>
+        <div class="result-card"><div class="result-label">\(I_2\)</div><div class="result-value purple" id="pI2">0.60</div><div class="result-unit">A</div></div>
+        <div class="result-card"><div class="result-label">\(P_1\)</div><div class="result-value" id="pP1">14.4</div><div class="result-unit">W</div></div>
+        <div class="result-card"><div class="result-label">\(P_2\)</div><div class="result-value" id="pP2">7.2</div><div class="result-unit">W</div></div>
+      </div>
+    </div>
+    <div id="circ-mixto" class="tab-content">
+      <div class="controls">
+        <div class="control-group"><label>Voltaje \(V_s\)</label><input type="range" id="mV" min="1" max="30" value="15" step="1"><span class="control-value" id="mVval">15</span><span class="control-unit">V</span></div>
+        <div class="control-group"><label>\(R_1\) serie</label><input type="range" id="mR1" min="1" max="30" value="5" step="1"><span class="control-value" id="mR1val">5</span><span class="control-unit">Ω</span></div>
+        <div class="control-group"><label>\(R_2\) (paralelo)</label><input type="range" id="mR2" min="1" max="30" value="10" step="1"><span class="control-value" id="mR2val">10</span><span class="control-unit">Ω</span></div>
+        <div class="control-group"><label>\(R_3\) (paralelo)</label><input type="range" id="mR3" min="1" max="30" value="10" step="1"><span class="control-value" id="mR3val">10</span><span class="control-unit">Ω</span></div>
+      </div>
+      <canvas id="mixtoCanvas" height="240"></canvas>
+      <div class="results-grid">
+        <div class="result-card"><div class="result-label">\(R_{2\|3}\)</div><div class="result-value" id="mRpar">5.00</div><div class="result-unit">Ω</div></div>
+        <div class="result-card"><div class="result-label">\(R_{eq}\)</div><div class="result-value" id="mReq">10.0</div><div class="result-unit">Ω</div></div>
+        <div class="result-card"><div class="result-label">\(I\) total</div><div class="result-value amber" id="mIt">1.50</div><div class="result-unit">A</div></div>
+        <div class="result-card"><div class="result-label">\(V_{R1}\)</div><div class="result-value green" id="mVr1">7.50</div><div class="result-unit">V</div></div>
+        <div class="result-card"><div class="result-label">\(V_{\text{par}}\)</div><div class="result-value purple" id="mVpar">7.50</div><div class="result-unit">V</div></div>
+        <div class="result-card"><div class="result-label">\(P\) total</div><div class="result-value red" id="mPtot">22.5</div><div class="result-unit">W</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S6 POTENCIA -->
+<section class="section" id="s6">
+  <div class="section-header"><span class="section-num">06 —</span><h2 class="section-title">Potencia Eléctrica y Efecto Joule</h2><span class="section-oa">OA26</span></div>
+  <div class="content-grid">
+    <div class="card">
+      <div class="card-label">Definición de Potencia</div><h3>Energía por unidad de tiempo</h3>
+      <p>La <strong style="color:var(--cyan)">potencia eléctrica</strong> es la tasa a la que se transforma la energía eléctrica.</p>
+      <div class="formula-box" style="font-size:1.2em">$$P = \frac{E}{\Delta t} = V \cdot I$$</div>
+      <p style="font-size:13px;color:var(--text-muted)">Unidad: \(1\,\text{W} = 1\,\dfrac{\text{J}}{\text{s}} = 1\,\text{V}\cdot\text{A}\)</p>
+      <div class="alert"><strong>1 kW = 1000 W &nbsp;·&nbsp; 1 MW = 10⁶ W</strong></div>
+    </div>
+    <div class="card amber">
+      <div class="card-label">Tres formas equivalentes</div><h3>Combinando P = VI con V = IR</h3>
+      <div class="formula-row">
+        <div class="formula-pill">$$P = V \cdot I$$</div>
+        <div class="formula-pill">$$P = I^2 \cdot R$$</div>
+        <div class="formula-pill">$$P = \frac{V^2}{R}$$</div>
+      </div>
+      <div class="alert" style="margin-top:12px"><strong>¿Cuándo usar cada una?</strong><br>
+        · Conoces V e I → usa \(P=VI\)<br>
+        · Conoces I y R → usa \(P=I^2R\)<br>
+        · Conoces V y R → usa \(P=V^2/R\)</div>
+    </div>
+    <div class="card full">
+      <div class="card-label">Efecto Joule — Calor generado por la corriente</div>
+      <h3>Conversión de energía eléctrica en calor</h3>
+      <div class="content-grid" style="margin:0">
+        <div>
+          <p style="font-size:14px;color:var(--text-muted)">Cuando la corriente circula por una resistencia, parte de la energía eléctrica se convierte en <strong style="color:var(--amber)">calor</strong>. Este fenómeno se denomina Efecto Joule.</p>
+          <div class="formula-box">$$Q = P \cdot \Delta t = I^2 \cdot R \cdot \Delta t = \frac{V^2}{R} \cdot \Delta t$$</div>
+          <p style="font-size:13px;color:var(--text-muted)">Donde \(Q\) es el calor en Joules [J], \(\Delta t\) el tiempo en segundos [s].</p>
+        </div>
+        <div>
+          <p style="font-size:14px;color:var(--text-muted)"><strong style="color:var(--amber)">Aplicaciones:</strong></p>
+          <ul style="font-size:13px;color:var(--text-muted);padding-left:18px;margin-top:8px">
+            <li>Calefactores y estufas eléctricas</li>
+            <li>Ampolletas incandescentes (filamento ~2700°C)</li>
+            <li>Planchas, secadoras, tostadoras</li>
+            <li>Fusibles: se funden al superar la corriente</li>
+            <li>Soldadura eléctrica</li>
+          </ul>
+          <div class="alert red" style="margin-top:10px"><strong>Pérdidas no deseadas:</strong> En cables de transmisión eléctrica el Efecto Joule representa pérdidas de energía. Por eso los cables son gruesos (mayor A → menor R → menos calor).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="simulator">
+    <div class="sim-badge">SIMULADOR — POTENCIA Y EFECTO JOULE</div>
+    <div class="sim-title">Calcula todas las formas de potencia simultáneamente</div>
+    <div class="controls">
+      <div class="control-group"><label>Voltaje \(V\)</label><input type="range" id="pwV" min="1" max="220" value="12" step="1"><span class="control-value" id="pwVval">12</span><span class="control-unit">V</span></div>
+      <div class="control-group"><label>Resistencia \(R\)</label><input type="range" id="pwR" min="1" max="200" value="30" step="1"><span class="control-value" id="pwRval">30</span><span class="control-unit">Ω</span></div>
+      <div class="control-group"><label>Tiempo \(\Delta t\)</label><input type="range" id="pwT" min="1" max="3600" value="60" step="1"><span class="control-value" id="pwTval">60</span><span class="control-unit">s</span></div>
+    </div>
+    <div class="results-grid">
+      <div class="result-card"><div class="result-label">Corriente \(I=V/R\)</div><div class="result-value" id="pwI">0.400</div><div class="result-unit">A</div></div>
+      <div class="result-card"><div class="result-label">\(P=VI\)</div><div class="result-value amber" id="pwP">4.80</div><div class="result-unit">W</div></div>
+      <div class="result-card"><div class="result-label">\(P=I^2R\)</div><div class="result-value green" id="pwP2">4.80</div><div class="result-unit">W</div></div>
+      <div class="result-card"><div class="result-label">\(P=V^2/R\)</div><div class="result-value purple" id="pwP3">4.80</div><div class="result-unit">W</div></div>
+      <div class="result-card"><div class="result-label">Energía \(E=P\cdot t\)</div><div class="result-value red" id="pwE">288</div><div class="result-unit">J</div></div>
+      <div class="result-card"><div class="result-label">Calor Joule \(Q\)</div><div class="result-value" id="pwQ">288</div><div class="result-unit">J</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- S7 CONSUMO -->
+<section class="section" id="s7">
+  <div class="section-header"><span class="section-num">07 —</span><h2 class="section-title">Consumo Energético</h2><span class="section-oa">OA29</span></div>
+  <div class="content-grid">
+    <div class="card">
+      <div class="card-label">El kiloWatt·hora [kWh]</div><h3>Unidad práctica de energía</h3>
+      <p>En la vida cotidiana se usa el <strong style="color:var(--cyan)">kWh</strong> en lugar del Joule porque el Joule es demasiado pequeño para el consumo domiciliario.</p>
+      <div class="formula-box">$$1\,\text{kWh} = 1000\,\text{W} \times 3600\,\text{s} = 3{,}6 \times 10^{6}\,\text{J}$$</div>
+      <div class="formula-box">$$E\,[\text{kWh}] = P\,[\text{kW}] \cdot t\,[\text{h}]$$</div>
+      <div class="alert cyan"><strong>Conversión clave PAES:</strong> Primero convierte W a kW (÷1000), y horas a horas. El resultado es kWh directamente.</div>
+    </div>
+    <div class="card amber">
+      <div class="card-label">Eficiencia Energética \(\eta\)</div><h3>Rendimiento de un dispositivo</h3>
+      <div class="formula-box">$$\eta = \frac{E_{\text{útil}}}{E_{\text{total}}} \times 100\%$$</div>
+      <p style="font-size:14px;color:var(--text-muted)">La eficiencia compara la energía que produce el dispositivo de forma útil vs. la que consume en total.</p>
+      <table class="formula-table" style="margin-top:12px">
+        <thead><tr><th>Dispositivo</th><th>Eficiencia \(\eta\)</th><th>Pérdida</th></tr></thead>
+        <tbody>
+          <tr><td>LED moderno</td><td>80–90%</td><td>10–20% calor</td></tr>
+          <tr><td>Ampolleta incandescente</td><td>~5%</td><td>95% calor</td></tr>
+          <tr><td>Motor eléctrico</td><td>85–95%</td><td>Fricción + calor</td></tr>
+          <tr><td>Panel solar</td><td>15–22%</td><td>Calor radiante</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card full green">
+      <div class="card-label">Simulador — Factura Eléctrica</div>
+      <h3>Calcula el consumo y costo de cualquier artefacto</h3>
+      <div class="controls">
+        <div class="control-group"><label>Potencia [W]</label><input type="range" id="appP" min="10" max="3000" value="1000" step="10"><span class="control-value" id="appPval">1000</span><span class="control-unit">W</span></div>
+        <div class="control-group"><label>Horas/día</label><input type="range" id="appH" min="0.5" max="24" value="8" step="0.5"><span class="control-value" id="appHval">8.0</span><span class="control-unit">h</span></div>
+        <div class="control-group"><label>Días del mes</label><input type="range" id="appD" min="1" max="31" value="30" step="1"><span class="control-value" id="appDval">30</span><span class="control-unit">días</span></div>
+        <div class="control-group"><label>Tarifa [$/kWh]</label><input type="range" id="appT" min="50" max="300" value="130" step="5"><span class="control-value" id="appTval">130</span><span class="control-unit">$/kWh</span></div>
+      </div>
+      <canvas id="energyCanvas" height="200"></canvas>
+      <div class="results-grid">
+        <div class="result-card"><div class="result-label">Potencia [kW]</div><div class="result-value" id="enP">1.000</div></div>
+        <div class="result-card"><div class="result-label">Energía diaria</div><div class="result-value amber" id="enDay">8.00</div><div class="result-unit">kWh</div></div>
+        <div class="result-card"><div class="result-label">Energía mensual</div><div class="result-value green" id="enMonth">240</div><div class="result-unit">kWh</div></div>
+        <div class="result-card"><div class="result-label">Costo mensual</div><div class="result-value red" id="enCost">$31.200</div></div>
+        <div class="result-card"><div class="result-label">Equiv. en Joules</div><div class="result-value purple" id="enJ">8.64×10⁸</div></div>
+      </div>
+      <div style="margin-top:16px">
+        <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-bottom:6px"><span>Nivel consumo mensual</span><span id="effLabel">Normal</span></div>
+        <div class="energy-meter"><div class="energy-bar-track"><div class="energy-bar-fill" id="effBar" style="width:48%"></div></div><span style="font-family:var(--font-mono);font-size:11px;color:var(--amber);min-width:60px" id="effPct">240 kWh</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S8 INSTALACIÓN -->
+<section class="section" id="s8">
+  <div class="section-header"><span class="section-num">08 —</span><h2 class="section-title">Instalación Eléctrica Domiciliaria</h2><span class="section-oa">OA30</span></div>
+  <div class="content-grid">
+    <div class="card">
+      <div class="card-label">Protecciones del Tablero</div><h3>Elementos de seguridad</h3>
+      <div class="def-block"><div class="def-icon">🔘</div><div class="def-body"><h4 style="color:var(--cyan)">Disyuntor / Breaker</h4><p>Interruptor automático que corta al superar la corriente nominal (p.ej. 20 A). Se resetea manualmente. Protege la instalación de sobrecarga.</p></div></div>
+      <div class="def-block"><div class="def-icon">🔗</div><div class="def-body"><h4 style="color:var(--amber)">Fusible</h4><p>Alambre metálico que se funde al superar la corriente máxima. De uso único. Más económico pero menos conveniente que el breaker.</p></div></div>
+      <div class="def-block"><div class="def-icon">⚡</div><div class="def-body"><h4 style="color:var(--green)">Diferencial (RCCB)</h4><p>Detecta fugas de corriente ≥ 30 mA hacia tierra. Se dispara en milisegundos. Protege a las <strong>personas</strong> contra electrocución.</p></div></div>
+      <div class="def-block"><div class="def-icon">🌍</div><div class="def-body"><h4 style="color:var(--purple)">Puesta a tierra</h4><p>Conductor verde/amarillo que conecta las carcasas metálicas al suelo. En falla, la corriente fluye a tierra y no por el cuerpo humano.</p></div></div>
+    </div>
+    <div class="card amber">
+      <div class="card-label">Artefactos en PARALELO</div><h3>¿Por qué todos en paralelo?</h3>
+      <p>En los hogares, todos los artefactos están en <strong style="color:var(--amber)">paralelo</strong> a la red de 220 V. Razones:</p>
+      <ul style="margin-top:10px">
+        <li>Todos reciben el <strong>mismo voltaje: 220 V</strong></li>
+        <li>Cada uno funciona <strong>independientemente</strong></li>
+        <li>El fallo de uno <strong>no afecta a los demás</strong></li>
+        <li>Se pueden conectar o desconectar libremente</li>
+      </ul>
+      <div class="formula-box" style="margin-top:14px">$$I_{\text{total}} = \frac{P_{\text{total}}}{220\,\text{V}} = \frac{P_1 + P_2 + \cdots}{220}$$</div>
+      <div class="alert"><strong>Límite:</strong> Si \(I_{\text{total}} > I_{\text{nominal}}\) del disyuntor, este se dispara.</div>
+    </div>
+    <div class="card full">
+      <div class="card-label">Los tres conductores</div>
+      <h3>Fase · Neutro · Tierra</h3>
+      <div class="content-grid-3" style="margin:0">
+        <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:18px;border-top:2px solid var(--red)">
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--red);margin-bottom:8px">FASE (VIVO) — Negro/Rojo</div>
+          <p style="font-size:13px;color:var(--text-muted)">Conduce los 220 V de tensión. Es el conductor <strong>peligroso</strong>. Conectado al polo de voltaje de la red.</p>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:18px;border-top:2px solid var(--text-muted)">
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--text-muted);margin-bottom:8px">NEUTRO — Blanco/Azul</div>
+          <p style="font-size:13px;color:var(--text-muted)">Conductor de retorno. Completa el circuito. Teóricamente a 0 V respecto a tierra. Sin él no circula corriente.</p>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:18px;border-top:2px solid var(--green)">
+          <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;color:var(--green);margin-bottom:8px">TIERRA — Verde/Amarillo</div>
+          <p style="font-size:13px;color:var(--text-muted)">Conductor de <strong>seguridad</strong>. No conduce corriente en operación normal. Solo actúa en caso de falla eléctrica.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="simulator">
+    <div class="sim-badge">SIMULADOR — PANEL DOMICILIARIO</div>
+    <div class="sim-title">¿Se dispara el disyuntor? (límite: 20 A)</div>
+    <div class="controls" style="grid-template-columns:repeat(4,1fr)">
+      <div class="control-group"><label>Televisor [W]</label><input type="range" id="devTV" min="0" max="300" value="150" step="10"><span class="control-value" id="devTVval">150</span></div>
+      <div class="control-group"><label>Microondas [W]</label><input type="range" id="devMW" min="0" max="2000" value="1000" step="100"><span class="control-value" id="devMWval">1000</span></div>
+      <div class="control-group"><label>Lava-ropa [W]</label><input type="range" id="devWM" min="0" max="3000" value="1500" step="100"><span class="control-value" id="devWMval">1500</span></div>
+      <div class="control-group"><label>Luces [W]</label><input type="range" id="devLT" min="0" max="1000" value="200" step="50"><span class="control-value" id="devLTval">200</span></div>
+    </div>
+    <canvas id="panelCanvas" height="200"></canvas>
+    <div class="results-grid">
+      <div class="result-card"><div class="result-label">P total</div><div class="result-value" id="panelP">2850</div><div class="result-unit">W</div></div>
+      <div class="result-card"><div class="result-label">I total = P/220V</div><div class="result-value amber" id="panelI">12.95</div><div class="result-unit">A</div></div>
+      <div class="result-card"><div class="result-label">Capacidad usada</div><div class="result-value green" id="panelCap">64.8%</div></div>
+      <div class="result-card"><div class="result-label">Estado</div><div class="result-value green" id="panelStatus">✓ OK</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- S9 PRACTICA PAES -->
+<section class="section" id="s9">
+  <div class="section-header"><span class="section-num">09 —</span><h2 class="section-title">Práctica PAES — Tipo DEMRE</h2><span class="section-oa">OA27 · OA31</span></div>
+  <div style="margin-bottom:24px">
+    <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-bottom:6px"><span>Progreso</span><span id="scoreLabel">0 / 8 correctas</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="scoreFill" style="width:0%"></div></div>
+  </div>
+  <!-- Q1 -->
+  <div class="question-block">
+    <div class="question-num">PREGUNTA 01 · OA25 — Ley de Ohm</div>
+    <div class="question-text">Una resistencia de 40 Ω está conectada a una fuente de 12 V. ¿Cuál es la corriente que circula por el circuito?</div>
+    <div class="options" data-answer="1">
+      <div class="option" onclick="answerQ(this,0,'q1')"><span class="option-letter">A</span><span>\(I = 0{,}1\,\text{A}\)</span></div>
+      <div class="option" onclick="answerQ(this,1,'q1')"><span class="option-letter">B</span><span>\(I = 0{,}3\,\text{A}\)</span></div>
+      <div class="option" onclick="answerQ(this,2,'q1')"><span class="option-letter">C</span><span>\(I = 3{,}3\,\text{A}\)</span></div>
+      <div class="option" onclick="answerQ(this,3,'q1')"><span class="option-letter">D</span><span>\(I = 480\,\text{A}\)</span></div>
+    </div>
+    <div class="explanation" id="q1-exp">Ley de Ohm: \(I = \dfrac{V}{R} = \dfrac{12\,\text{V}}{40\,\Omega} = 0{,}3\,\text{A}\). Respuesta <strong style="color:var(--green)">B</strong>.</div>
+  </div>
+  <!-- Q2 -->
+  <div class="question-block">
+    <div class="question-num">PREGUNTA 02 · OA25 — Serie</div>
+    <div class="question-text">Dos resistencias de 6 Ω y 12 Ω están conectadas en <strong>serie</strong> a una batería de 18 V. ¿Qué voltaje cae sobre la resistencia de 6 Ω?</div>
+    <div class="options" data-answer="0">
+      <div class="option" onclick="answerQ(this,0,'q2')"><span class="option-letter">A</span><span>\(V_1 = 6\,\text{V}\)</span></div>
+      <div class="option" onclick="answerQ(this,1,'q2')"><span class="option-letter">B</span><span>\(V_1 = 9\,\text{V}\)</span></div>
+      <div class="option" onclick="answerQ(this,2,'q2')"><span class="option-letter">C</span><span>\(V_1 = 12\,\text{V}\)</span></div>
+      <div class="option" onclick="answerQ(this,3,'q2')"><span class="option-letter">D</span><span>\(V_1 = 18\,\text{V}\)</span></div>
+    </div>
+    <div class="explanation" id="q2-exp">\(R_{eq} = 6+12 = 18\,\Omega\). \(I = 18/18 = 1\,\text{A}\). \(V_1 = 1\,\text{A} \times 6\,\Omega = 6\,\text{V}\). Respuesta <strong style="color:var(--green)">A</strong>.</div>
+  </div>
+  <!-- Q3 -->
+  <div class="question-block">
+    <div class="question-num">PREGUNTA 03 · OA25 — Paralelo</div>
+    <div class="question-text">Dos resistencias de 10 Ω cada una están conectadas en <strong>paralelo</strong>. ¿Cuál es la resistencia equivalente?</div>
+    <div class="options" data-answer="1">
+      <div class="option" onclick="answerQ(this,0,'q3')"><span class="option-letter">A</span><span>\(R_{eq} = 20\,\Omega\)</span></div>
+      <div class="option" onclick="answerQ(this,1,'q3')"><span class="option-letter">B</span><span>\(R_{eq} = 5\,\Omega\)</span></div>
+      <div class="option" onclick="answerQ(this,2,'q3')"><span class="option-letter">C</span><span>\(R_{eq} = 10\,\Omega\)</span></div>
+      <div class="option" onclick="answerQ(this,3,'q3')"><span class="option-letter">D</span><span>\(R_{eq} = 0{,}2\,\Omega\)</span></div>
+    </div>
+    <div class="explanation" id="q3-exp">\(\dfrac{1}{R_{eq}} = \dfrac{1}{10}+\dfrac{1}{10} = \dfrac{2}{10}\), luego \(R_{eq} = 5\,\Omega\). Atajo: para dos R iguales, \(R_{eq} = R/2 = 5\,\Omega\). Respuesta <strong style="color:var(--green)">B</strong>.</div>
+  </div>
+  <!-- Q4 -->
+  <div class="question-block">
+    <div class="question-num">PREGUNTA 04 · OA26 — Energía</div>
+    <div class="question-text">Un calefactor de 1500 W funciona 4 horas diarias durante 30 días. ¿Cuánta energía consume en ese período?</div>
+    <div class="options" data-answer="2">
+      <div class="option" onclick="answerQ(this,0,'q4')"><span class="option-letter">A</span><span>45 kWh</span></div>
+      <div class="option" onclick="answerQ(this,1,'q4')"><span class="option-letter">B</span><span>120 kWh</span></div>
+      <div class="option" onclick="answerQ(this,2,'q4')"><span class="option-letter">C</span><span>180 kWh</span></div>
+      <div class="option" onclick="answerQ(this,3,'q4')"><span class="option-letter">D</span><span>1800 kWh</span></div>
+    </div>
+    <div class="explanation" id="q4-exp">\(E = P \cdot t = 1{,}5\,\text{kW} \times (4\,\text{h} \times 30) = 1{,}5 \times 120 = 180\,\text{kWh}\). Respuesta <strong style="color:var(--green)">C</strong>.</div>
+  </div>
+  <!-- Q5 -->
+  <div class="question-block">
+    <div class="question-num">PREGUNTA 05 · OA28 — Corriente y carga</div>
+    <div class="question-text">Por un conductor circulan \(4 \times 10^{20}\) electrones en 2 segundos. Con \(e = 1{,}6 \times 10^{-19}\,\text{C}\), ¿cuál es la intensidad de corriente?</div>
+    <div class="options" data-answer="3">
+      <div class="option" onclick="answerQ(this,0,'q5')"><span class="option-letter">A</span><span>\(I = 0{,}32\,\text{A}\)</span></div>
+      <div class="option" onclick="answerQ(this,1,'q5')"><span class="option-letter">B</span><span>\(I = 0{,}8\,\text{A}\)</span></div>
+      <div class="option" onclick="answerQ(this,2,'q5')"><span class="option-letter">C</span><span>\(I = 6{,}4\,\text{A}\)</span></div>
+      <div class="option" onclick="answerQ(this,3,'q5')"><span class="option-letter">D</span><span>\(I = 32\,\text{A}\)</span></div>
+    </div>
+    <div class="explanation" id="q5-exp">\(\Delta q = N\cdot e = 4\times10^{20} \times 1{,}6\times10^{-19} = 64\,\text{C}\). Luego \(I = \dfrac{64\,\text{C}}{2\,\text{s}} = 32\,\text{A}\). Respuesta <strong style="color:var(--green)">D</strong>.</div>
+  </div>
+  <!-- Q6 -->
+  <div class="question-block">
+    <div class="question-num">PREGUNTA 06 · OA24 — Coulomb</div>
+    <div class="question-text">Dos cargas iguales separadas por 0,3 m ejercen una fuerza \(F\). Si la distancia aumenta a 0,9 m, ¿qué ocurre con la fuerza?</div>
+    <div class="options" data-answer="2">
+      <div class="option" onclick="answerQ(this,0,'q6')"><span class="option-letter">A</span><span>Se divide por 3</span></div>
+      <div class="option" onclick="answerQ(this,1,'q6')"><span class="option-letter">B</span><span>Se divide por 6</span></div>
+      <div class="option" onclick="answerQ(this,2,'q6')"><span class="option-letter">C</span><span>Se divide por 9</span></div>
+      <div class="option" onclick="answerQ(this,3,'q6')"><span class="option-letter">D</span><span>Se divide por 27</span></div>
+    </div>
+    <div class="explanation" id="q6-exp">La distancia se triplica (\(0{,}3 \to 0{,}9\,\text{m}\), factor 3). Como \(F \propto 1/d^2\), entonces \(F' = F/3^2 = F/9\). Respuesta <strong style="color:var(--green)">C</strong>.</div>
+  </div>
+  <!-- Q7 -->
+  <div class="question-block">
+    <div class="question-num">PREGUNTA 07 · OA31 — Cualitativo Paralelo</div>
+    <div class="question-text">Una ampolleta y una estufa están en <strong>paralelo</strong> a 220 V. Se desconecta la estufa. ¿Qué ocurre con la ampolleta y con la corriente total?</div>
+    <div class="options" data-answer="2">
+      <div class="option" onclick="answerQ(this,0,'q7')"><span class="option-letter">A</span><span>La ampolleta se apaga porque la corriente total cae a cero</span></div>
+      <div class="option" onclick="answerQ(this,1,'q7')"><span class="option-letter">B</span><span>La ampolleta brilla más porque recibe más voltaje</span></div>
+      <div class="option" onclick="answerQ(this,2,'q7')"><span class="option-letter">C</span><span>La ampolleta sigue igual y la corriente total disminuye</span></div>
+      <div class="option" onclick="answerQ(this,3,'q7')"><span class="option-letter">D</span><span>Ambos dispositivos se apagan simultáneamente</span></div>
+    </div>
+    <div class="explanation" id="q7-exp">En paralelo, cada rama tiene su propia conexión a 220 V. La ampolleta siempre recibe 220 V, independiente de la estufa. Al desconectar la estufa, la corriente total disminuye: \(I_T\) pasa de \(I_{\text{amp}} + I_{\text{est}}\) a solo \(I_{\text{amp}}\). Respuesta <strong style="color:var(--green)">C</strong>.</div>
+  </div>
+  <!-- Q8 -->
+  <div class="question-block">
+    <div class="question-num">PREGUNTA 08 · OA26 — Potencia en paralelo</div>
+    <div class="question-text">Una ampolleta A de 100 W y una B de 60 W están en paralelo a 220 V. ¿Cuál tiene mayor resistencia y cuál consume más energía por hora?</div>
+    <div class="options" data-answer="1">
+      <div class="option" onclick="answerQ(this,0,'q8')"><span class="option-letter">A</span><span>Mayor R: A · Mayor consumo: B</span></div>
+      <div class="option" onclick="answerQ(this,1,'q8')"><span class="option-letter">B</span><span>Mayor R: B · Mayor consumo: A</span></div>
+      <div class="option" onclick="answerQ(this,2,'q8')"><span class="option-letter">C</span><span>Mayor R: A · Mayor consumo: A</span></div>
+      <div class="option" onclick="answerQ(this,3,'q8')"><span class="option-letter">D</span><span>Ambas tienen igual resistencia</span></div>
+    </div>
+    <div class="explanation" id="q8-exp">Usando \(P = V^2/R \Rightarrow R = V^2/P\). Para A: \(R_A = 220^2/100 = 484\,\Omega\). Para B: \(R_B = 220^2/60 = 807\,\Omega\). La de 60 W (B) tiene <strong>mayor resistencia</strong>. La de 100 W (A) consume <strong>más energía</strong>. Paradoja: mayor R → menor corriente → menor potencia. Respuesta <strong style="color:var(--green)">B</strong>.</div>
+  </div>
+  <div style="text-align:center;margin-top:28px">
+    <button onclick="resetQuiz()" style="font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;padding:12px 30px;border-radius:8px;border:1px solid var(--border2);background:rgba(0,229,255,.05);color:var(--cyan);cursor:pointer;transition:all .2s">↺ REINICIAR PRÁCTICA</button>
+  </div>
+</section>
+
+<!-- S10 GLOSARIO -->
+<section class="section" id="s10">
+  <div class="section-header"><span class="section-num">10 —</span><h2 class="section-title">Glosario de Electricidad</h2></div>
+  <div class="glossary-grid">
+    <div class="gloss-item"><div class="gloss-term">Carga eléctrica \(q\)</div><div class="gloss-unit">Coulomb [C]</div><div class="gloss-def">Propiedad fundamental de la materia que determina la interacción electromagnética. Cuantizada: \(q = ne\) donde \(n\) es entero.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Carga elemental \(e\)</div><div class="gloss-unit">\(1{,}6\times10^{-19}\) C</div><div class="gloss-def">Mínima unidad de carga libre observable. Carga del protón (+e) y del electrón (−e).</div></div>
+    <div class="gloss-item"><div class="gloss-term">Corriente eléctrica \(I\)</div><div class="gloss-unit">Ampere [A]</div><div class="gloss-def">Flujo de carga por unidad de tiempo: \(I = \Delta q/\Delta t\). 1 A = 1 C/s. El Ampere es una de las unidades base del SI.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Diferencia de potencial \(V\)</div><div class="gloss-unit">Volt [V]</div><div class="gloss-def">Trabajo para mover una carga unitaria entre dos puntos: \(V = W/q\). También llamado voltaje o DDP. \(1\,\text{V} = 1\,\text{J/C}\).</div></div>
+    <div class="gloss-item"><div class="gloss-term">Resistencia \(R\)</div><div class="gloss-unit">Ohm [Ω]</div><div class="gloss-def">Oposición al flujo de corriente. Depende del material, geometría y temperatura: \(R = \rho L/A\). \(1\,\Omega = 1\,\text{V/A}\).</div></div>
+    <div class="gloss-item"><div class="gloss-term">Resistividad \(\rho\)</div><div class="gloss-unit">Ω·m</div><div class="gloss-def">Propiedad intrínseca del material que indica su resistencia al paso de corriente. Varía con la temperatura. Cobre: \(1{,}7\times10^{-8}\,\Omega\cdot\text{m}\).</div></div>
+    <div class="gloss-item"><div class="gloss-term">Potencia eléctrica \(P\)</div><div class="gloss-unit">Watt [W]</div><div class="gloss-def">Energía consumida/generada por unidad de tiempo: \(P = VI = I^2R = V^2/R\). \(1\,\text{W} = 1\,\text{J/s}\).</div></div>
+    <div class="gloss-item"><div class="gloss-term">Energía eléctrica \(E\)</div><div class="gloss-unit">J / kWh</div><div class="gloss-def">Trabajo realizado: \(E = P\cdot t\). Uso domiciliario: kWh. \(1\,\text{kWh} = 3{,}6\times10^6\,\text{J}\).</div></div>
+    <div class="gloss-item"><div class="gloss-term">Campo eléctrico \(\vec{E}\)</div><div class="gloss-unit">N/C = V/m</div><div class="gloss-def">Región del espacio donde una carga experimenta fuerza eléctrica. \(E = F/q_0 = kq/d^2\). Generado por cargas eléctricas.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Constante de Coulomb \(k\)</div><div class="gloss-unit">\(9\times10^9\,\text{N}\cdot\text{m}^2/\text{C}^2\)</div><div class="gloss-def">Factor de proporcionalidad en la Ley de Coulomb. Relacionada con la permitividad del vacío: \(k = 1/(4\pi\varepsilon_0)\).</div></div>
+    <div class="gloss-item"><div class="gloss-term">Corriente Continua (CC/DC)</div><div class="gloss-unit">Dirección constante</div><div class="gloss-def">Corriente con sentido y magnitud constantes. Generada por pilas, baterías, paneles solares. Usada en electrónica.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Corriente Alterna (CA/AC)</div><div class="gloss-unit">50 Hz en Chile</div><div class="gloss-def">Corriente cuyo sentido oscila periódicamente. Red domiciliaria en Chile: 220 V, 50 Hz, período T = 0,02 s.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Efecto Joule</div><div class="gloss-unit">\(Q = I^2Rt\)</div><div class="gloss-def">Conversión de energía eléctrica en calor al circular corriente por una resistencia. Base de calefactores, planchas e incandescentes.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Disyuntor / Breaker</div><div class="gloss-unit">Protección sobrecarga</div><div class="gloss-def">Interruptor automático que corta al superar la corriente nominal. Reseteable manualmente. Protege la instalación eléctrica.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Diferencial (RCCB)</div><div class="gloss-unit">Protección personas</div><div class="gloss-def">Detecta fugas ≥ 30 mA y corta en milisegundos. Esencial para prevenir electrocución. Protege la vida humana.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Conductividad \(\sigma\)</div><div class="gloss-unit">S/m = (Ω·m)⁻¹</div><div class="gloss-def">Inversa de la resistividad: \(\sigma = 1/\rho\). Indica facilidad del material para conducir corriente. Alta en metales.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Electronvolt (eV)</div><div class="gloss-unit">\(1{,}6\times10^{-19}\) J</div><div class="gloss-def">Energía ganada por un electrón al atravesar una DDP de 1 V. Usada en física atómica y nuclear por su conveniencia de escala.</div></div>
+    <div class="gloss-item"><div class="gloss-term">Eficiencia energética \(\eta\)</div><div class="gloss-unit">% (0 a 100)</div><div class="gloss-def">Razón entre energía útil y total: \(\eta = E_{\text{útil}}/E_{\text{total}} \times 100\%\). LED: ~85%. Incandescente: ~5%. Motor: ~90%.</div></div>
+  </div>
+</section>
+
+<!-- FORMULARIO COMPLETO -->
+<section class="section">
+  <div class="section-header"><span class="section-num">∑ —</span><h2 class="section-title">Formulario de Referencia</h2></div>
+  <div class="card full">
+    <div class="card-label">Todas las fórmulas PAES — Electricidad OA24–OA31</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:14px">
+      <div class="formula-pill" style="padding:16px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--cyan);margin-bottom:8px">LEY DE COULOMB</div>$$F = k\,\dfrac{|q_1|\,|q_2|}{d^2}$$<div style="font-size:11px;color:var(--text-dim);margin-top:6px">\(k = 9\times10^9\,\text{N}\cdot\text{m}^2/\text{C}^2\)</div></div>
+      <div class="formula-pill" style="padding:16px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--amber);margin-bottom:8px">CORRIENTE</div>$$I = \dfrac{\Delta q}{\Delta t}$$</div>
+      <div class="formula-pill" style="padding:16px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--green);margin-bottom:8px">LEY DE OHM</div>$$V = I \cdot R$$</div>
+      <div class="formula-pill" style="padding:16px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--purple);margin-bottom:8px">RESISTIVIDAD</div>$$R = \rho \cdot \dfrac{L}{A}$$</div>
+      <div class="formula-pill" style="padding:16px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--cyan);margin-bottom:8px">SERIE</div>$$R_{eq} = \sum_{k} R_k$$</div>
+      <div class="formula-pill" style="padding:16px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--purple);margin-bottom:8px">PARALELO</div>$$\dfrac{1}{R_{eq}} = \sum_{k} \dfrac{1}{R_k}$$</div>
+      <div class="formula-pill" style="padding:16px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--amber);margin-bottom:8px">POTENCIA</div>$$P = VI = I^2R = \dfrac{V^2}{R}$$</div>
+      <div class="formula-pill" style="padding:16px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--green);margin-bottom:8px">ENERGÍA [kWh]</div>$$E = P\,[\text{kW}] \cdot t\,[\text{h}]$$</div>
+      <div class="formula-pill" style="padding:16px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--red);margin-bottom:8px">EFECTO JOULE</div>$$Q = I^2 R \,\Delta t$$</div>
+      <div class="formula-pill" style="padding:16px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--cyan);margin-bottom:8px">RED DOMICILIARIA</div>$$V = 220\,\text{V},\quad f = 50\,\text{Hz}$$</div>
+      <div class="formula-pill" style="padding:16px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--amber);margin-bottom:8px">CONVERSIÓN</div>$$1\,\text{kWh} = 3{,}6 \times 10^{6}\,\text{J}$$</div>
+      <div class="formula-pill" style="padding:16px"><div style="font-family:var(--font-mono);font-size:10px;color:var(--green);margin-bottom:8px">EFICIENCIA</div>$$\eta = \dfrac{E_{\text{útil}}}{E_{\text{total}}} \times 100\%$$</div>
+    </div>
+  </div>
+</section>
+</main>
+<footer style="text-align:center;padding:40px 20px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:11px;color:var(--text-dim);position:relative;z-index:10">
+  PAES FÍSICA — ELECTRICIDAD · OA24–OA31 · Preparación completa con simuladores interactivos
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\(",right:"\\)",display:false},{left:"\\[",right:"\\]",display:true}],throwOnError:false});
+  initCoulomb();initCurrent();initOhm();initCircuits();initPower();initEnergy();initPanel();
+});
+function switchTab(e,group,id){
+  const all=document.querySelectorAll('[id^="'+group+'-"]');
+  all.forEach(el=>el.classList.remove('active'));
+  const target=document.getElementById(group+'-'+id);
+  if(target)target.classList.add('active');
+  const tabsEl=e.target.closest('.tabs');
+  if(tabsEl)tabsEl.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  e.target.classList.add('active');
+  setTimeout(()=>{
+    if(group==='ohm'&&id==='graph')drawOhmGraph();
+    if(group==='circ'){{updateSerie();updateParallel();updateMixto();}}
+  },50);
+}
+function gv(id){return parseFloat(document.getElementById(id)?.value||0);}
+function st(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
+function fmtSci(n){
+  if(!n||n===0)return'0';
+  const e=Math.floor(Math.log10(Math.abs(n)));
+  const m=(n/Math.pow(10,e)).toFixed(2);
+  const sup=s=>String(s).split('').map(c=>({'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','-':'⁻'}[c]||c)).join('');
+  return m+'×10'+sup(e);
+}
+
+// COULOMB
+function initCoulomb(){
+  ['q1','q2','dist'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.addEventListener('input',()=>{
+      if(id==='dist'){
+        st('distval',parseFloat(el.value).toFixed(1));
+      } else {
+        const v=parseFloat(el.value);
+        const valEl=document.getElementById(id+'val');
+        if(valEl){
+          valEl.textContent=(v>=0?'+':'')+v.toFixed(1);
+          valEl.style.color=v>0?'var(--red)':v<0?'var(--cyan)':'var(--text-muted)';
+        }
+      }
+      updateCoulomb();
+    });
+  });
+  updateCoulomb();
+}
+function updateCoulomb(){
+  const q1=gv('q1')*1e-6,q2=gv('q2')*1e-6,d=gv('dist');
+  const F=9e9*Math.abs(q1*q2)/(d*d);
+  st('forceVal',(F*1000).toFixed(2));
+  const attract=q1*q2<0;
+  const ftEl=document.getElementById('forceType');
+  if(ftEl){ftEl.textContent=attract?'Atracción ↔':'Repulsión ↛';ftEl.style.color=attract?'var(--green)':'var(--red)';}
+  drawCoulomb();
+}
+function drawCoulomb(){
+  const c=document.getElementById('coulombCanvas');if(!c)return;
+  c.width=c.offsetWidth;const W=c.width,H=c.height,ctx=c.getContext('2d');
+  ctx.fillStyle='#131825';ctx.fillRect(0,0,W,H);
+  const q1=gv('q1'),q2=gv('q2'),d=gv('dist');
+  const cx1=W*.25,cx2=W*.75,cy=H/2;
+  const r1=12+Math.abs(q1)*2.5,r2=12+Math.abs(q2)*2.5;
+  const al=Math.min(75,20+80/(d*d));
+  const attract=q1*q2<0;
+  const fCol=attract?'#00ff94':'#ff4757';
+  function drawArr(x1,y1,x2,y2,col){
+    ctx.strokeStyle=col;ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+    const a=Math.atan2(y2-y1,x2-x1);ctx.fillStyle=col;ctx.beginPath();
+    ctx.moveTo(x2,y2);ctx.lineTo(x2-10*Math.cos(a-.4),y2-10*Math.sin(a-.4));
+    ctx.lineTo(x2-10*Math.cos(a+.4),y2-10*Math.sin(a+.4));ctx.closePath();ctx.fill();
+  }
+  if(attract){
+    // flechas apuntando hacia adentro (atracción)
+    drawArr(cx1-al,cy,cx1,cy,fCol);
+    drawArr(cx2+al,cy,cx2,cy,fCol);
+    ctx.fillStyle=fCol;ctx.font='11px Space Mono,monospace';ctx.textAlign='center';
+    ctx.fillText('F →',cx1-al/2,cy-16);ctx.fillText('← F',cx2+al/2,cy-16);
+  } else {
+    // flechas apuntando hacia afuera (repulsión)
+    drawArr(cx1,cy,cx1-al,cy,fCol);
+    drawArr(cx2,cy,cx2+al,cy,fCol);
+    ctx.fillStyle=fCol;ctx.font='11px Space Mono,monospace';ctx.textAlign='center';
+    ctx.fillText('← F',cx1-al/2,cy-16);ctx.fillText('F →',cx2+al/2,cy-16);
+  }
+  // etiqueta tipo fuerza en centro
+  ctx.font='bold 11px Space Mono,monospace';ctx.textAlign='center';ctx.fillStyle=fCol;
+  ctx.fillText(attract?'[ ATRACCIÓN ]':'[ REPULSIÓN ]',(cx1+cx2)/2,cy-18);
+  ctx.setLineDash([4,4]);ctx.strokeStyle='#3d5270';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(cx1,cy+44);ctx.lineTo(cx2,cy+44);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#7a8ba8';ctx.font='10px Space Mono,monospace';ctx.textAlign='center';
+  ctx.fillText('d = '+d.toFixed(1)+' m',(cx1+cx2)/2,cy+58);
+  // dibujar cada carga
+  [[cx1,r1,q1,'q₁'],[cx2,r2,q2,'q₂']].forEach(([cx,r,q,lbl])=>{
+    const isPos=q>=0;
+    const cInner=isPos?'#ff8a98':'#7acfff';
+    const cOuter=isPos?'#cc2233':'#0066bb';
+    const cStroke=isPos?'#ff4757':'#00aaff';
+    const sign=isPos?'+':'−';
+    if(Math.abs(q)<0.1){
+      // carga cero: gris
+      ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle='#3d5270';ctx.fill();
+      ctx.strokeStyle='#7a8ba8';ctx.lineWidth=2;ctx.stroke();
+      ctx.fillStyle='#fff';ctx.font='bold '+Math.round(r*.7)+'px Arial';
+      ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('0',cx,cy);
+    } else {
+      const g=ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+      g.addColorStop(0,cInner);g.addColorStop(1,cOuter);
+      ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+      ctx.strokeStyle=cStroke;ctx.lineWidth=2;ctx.stroke();
+      ctx.fillStyle='#fff';ctx.font='bold '+Math.round(r*.75)+'px Arial';
+      ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(sign,cx,cy);
+    }
+    ctx.fillStyle='#7a8ba8';ctx.font='10px Space Mono,monospace';ctx.textBaseline='alphabetic';
+    ctx.fillText(lbl+'='+(q>=0?'+':'')+q.toFixed(1)+'μC',cx,cy+r+16);
+  });
+}
+
+// CURRENT
+const electrons=[];
+function initCurrent(){
+  ['currentSlider','timeSlider'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('input',()=>{
+      const vid=id==='currentSlider'?'currentVal':'timeVal';
+      const dec=id==='currentSlider'?1:0;
+      st(vid,parseFloat(el.value).toFixed(dec));
+      updateCurrent();
+    });
+  });
+  updateCurrent();animElectrons();
+}
+function updateCurrent(){
+  const I=gv('currentSlider'),t=gv('timeSlider');
+  const q=I*t;st('chargeResult',q.toFixed(1));
+  st('electronCount',fmtSci(q/1.6e-19));
+  st('currentSpeed',I<1?'lenta':I<3?'normal':'rápida');
+}
+function animElectrons(){
+  const c=document.getElementById('currentCanvas');if(!c){requestAnimationFrame(animElectrons);return;}
+  c.width=c.offsetWidth;const W=c.width,H=c.height,ctx=c.getContext('2d');
+  if(electrons.length===0)for(let i=0;i<20;i++)electrons.push({x:Math.random()*W*.7+W*.1,y:H/2+(Math.random()-.5)*26,vx:0});
+  const I=gv('currentSlider')||2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#131825';ctx.fillRect(0,0,W,H);
+  const wy=H/2,wh=36;
+  ctx.fillStyle='#1a2235';
+  ctx.beginPath();if(ctx.roundRect)ctx.roundRect(W*.05,wy-wh/2,W*.9,wh,5);else ctx.rect(W*.05,wy-wh/2,W*.9,wh);
+  ctx.fill();ctx.strokeStyle='#243550';ctx.lineWidth=1;ctx.stroke();
+  ctx.fillStyle='#00e5ff';ctx.font='10px Space Mono,monospace';ctx.textAlign='center';
+  ctx.fillText('→ Corriente convencional (+→−)',W/2,wy-wh/2-7);
+  ctx.fillStyle='#7a8ba8';ctx.font='9px Space Mono,monospace';
+  ctx.fillText('← Flujo real de electrones (−→+)',W/2,wy+wh/2+13);
+  electrons.forEach(e=>{
+    e.x+=I*.38;if(e.x>W*.93)e.x=W*.1;
+    const g=ctx.createRadialGradient(e.x,e.y,0,e.x,e.y,5);
+    g.addColorStop(0,'#88ccff');g.addColorStop(1,'#0055cc');
+    ctx.beginPath();ctx.arc(e.x,e.y,5,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+    ctx.strokeStyle='#00aaff';ctx.lineWidth=1;ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font='bold 9px Arial';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('−',e.x,e.y);
+  });
+  requestAnimationFrame(animElectrons);
+}
+
+// OHM
+function initOhm(){
+  ['ohmV','ohmR'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('input',()=>{
+      st(id+'val',parseFloat(el.value).toFixed(id==='ohmV'?1:0));
+      updateOhm();
+    });
+  });
+  const eg=document.getElementById('ohmRg');
+  if(eg)eg.addEventListener('input',()=>{st('ohmRgval',parseInt(eg.value));drawOhmGraph();});
+  ['rL','rD'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('input',()=>{st(id+'val',parseFloat(el.value).toFixed(1));updateResist();});
+  });
+  updateOhm();updateResist();
+}
+function updateOhm(){
+  const V=gv('ohmV'),R=gv('ohmR'),I=V/R;
+  st('ohmIval',I.toFixed(3));
+  st('ohmP',(V*I).toFixed(2));st('ohmE',Math.round(V*I*3600));
+  drawOhmCircuit(V,R,I);
+}
+function updateResist(){
+  const L=gv('rL'),d=gv('rD')/1000,A=Math.PI*d*d/4;
+  st('rA',(A*1e6).toFixed(3));
+  st('rCu',(1.7e-8*L/A).toFixed(4));
+  st('rAl',(2.82e-8*L/A).toFixed(4));
+  st('rFe',(1e-7*L/A).toFixed(4));
+}
+function drawOhmCircuit(V,R,I){
+  const c=document.getElementById('ohmCircuitCanvas');if(!c)return;
+  c.width=c.offsetWidth;const W=c.width,H=c.height,ctx=c.getContext('2d');
+  ctx.fillStyle='#131825';ctx.fillRect(0,0,W,H);
+  const cx=W/2,cy=H/2,bw=90,bh=44,rw=68,rh=30;
+  ctx.strokeStyle='#00e5ff';ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.moveTo(cx-bw/2-34,cy);ctx.lineTo(cx-bw/2,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx+bw/2,cy);ctx.lineTo(cx+bw/2+34,cy);ctx.stroke();
+  ctx.fillStyle='#1a2235';
+  ctx.beginPath();if(ctx.roundRect)ctx.roundRect(cx-bw/2,cy-bh/2,bw,bh,8);else ctx.rect(cx-bw/2,cy-bh/2,bw,bh);
+  ctx.fill();ctx.strokeStyle='#ffb700';ctx.lineWidth=2;ctx.stroke();
+  ctx.fillStyle='#ffb700';ctx.font='bold 13px Space Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('⚡',cx,cy-3);ctx.font='10px Space Mono,monospace';ctx.fillStyle='#ffb700';
+  ctx.fillText(V.toFixed(1)+' V',cx,cy+bh/2+14);
+  const rx=cx+bw/2+34+10;
+  ctx.fillStyle='#1a2235';
+  ctx.beginPath();if(ctx.roundRect)ctx.roundRect(rx,cy-rh/2,rw,rh,5);else ctx.rect(rx,cy-rh/2,rw,rh);
+  ctx.fill();ctx.strokeStyle='#9b5de5';ctx.lineWidth=2;ctx.stroke();
+  ctx.fillStyle='#9b5de5';ctx.font='11px Space Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('R='+R+'Ω',rx+rw/2,cy-3);ctx.font='10px Space Mono,monospace';ctx.fillStyle='#7a8ba8';
+  ctx.fillText(I.toFixed(3)+' A',rx+rw/2,cy+rh/2+14);
+}
+function drawOhmGraph(){
+  const c=document.getElementById('ohmGraphCanvas');if(!c||!c.offsetWidth)return;
+  c.width=c.offsetWidth;const W=c.width,H=c.height,ctx=c.getContext('2d');
+  ctx.fillStyle='#131825';ctx.fillRect(0,0,W,H);
+  const R=gv('ohmRg')||30,pad={t:30,r:20,b:40,l:55};
+  const gW=W-pad.l-pad.r,gH=H-pad.t-pad.b,maxI=0.5,maxV=R*maxI;
+  ctx.strokeStyle='#1e2d45';ctx.lineWidth=.5;
+  for(let i=1;i<=5;i++){
+    const x=pad.l+gW*i/5,y=pad.t+gH*(1-i/5);
+    ctx.beginPath();ctx.moveTo(x,pad.t);ctx.lineTo(x,pad.t+gH);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+gW,y);ctx.stroke();
+    ctx.fillStyle='#3d5270';ctx.font='10px Space Mono,monospace';ctx.textAlign='right';ctx.textBaseline='middle';
+    ctx.fillText((maxV*i/5).toFixed(0),pad.l-6,y);
+    ctx.textAlign='center';ctx.textBaseline='top';
+    ctx.fillText((maxI*i/5).toFixed(2),x,pad.t+gH+5);
+  }
+  ctx.strokeStyle='#243550';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,pad.t+gH);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(pad.l,pad.t+gH);ctx.lineTo(pad.l+gW,pad.t+gH);ctx.stroke();
+  ctx.strokeStyle='#00e5ff';ctx.lineWidth=2.5;ctx.shadowColor='#00e5ff';ctx.shadowBlur=8;
+  ctx.beginPath();ctx.moveTo(pad.l,pad.t+gH);ctx.lineTo(pad.l+gW,pad.t);ctx.stroke();ctx.shadowBlur=0;
+  ctx.fillStyle='#00e5ff';ctx.font='bold 12px Space Mono,monospace';ctx.textAlign='left';ctx.textBaseline='top';
+  ctx.fillText('pendiente = R = '+R+' Ω',pad.l+8,pad.t+8);
+  ctx.fillStyle='#7a8ba8';ctx.font='11px Space Mono,monospace';ctx.textAlign='center';
+  ctx.fillText('Corriente I (A)',pad.l+gW/2,H-6);
+  ctx.save();ctx.rotate(-Math.PI/2);ctx.textAlign='center';
+  ctx.fillText('Voltaje V (V)',-(pad.t+gH/2),12);ctx.restore();
+}
+
+// CIRCUITS
+function initCircuits(){
+  const items={sV:'sVval',sR1:'sR1val',sR2:'sR2val',pV:'pVval',pR1:'pR1val',pR2:'pR2val',mV:'mVval',mR1:'mR1val',mR2:'mR2val',mR3:'mR3val'};
+  Object.entries(items).forEach(([id,vid])=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('input',()=>{st(vid,parseInt(el.value));updateSerie();updateParallel();updateMixto();});
+  });
+  updateSerie();updateParallel();updateMixto();
+}
+function updateSerie(){
+  const V=gv('sV'),R1=gv('sR1'),R2=gv('sR2'),Req=R1+R2,I=V/Req;
+  st('sReq',Req);st('sI',I.toFixed(2));st('sV1',(I*R1).toFixed(2));st('sV2',(I*R2).toFixed(2));
+  st('sP1',(I*I*R1).toFixed(2));st('sP2',(I*I*R2).toFixed(2));
+  drawSerie();
+}
+function updateParallel(){
+  const V=gv('pV'),R1=gv('pR1'),R2=gv('pR2'),Req=1/(1/R1+1/R2),I1=V/R1,I2=V/R2;
+  st('pReq',Req.toFixed(2));st('pIt',(I1+I2).toFixed(2));st('pI1',I1.toFixed(2));st('pI2',I2.toFixed(2));
+  st('pP1',(V*I1).toFixed(1));st('pP2',(V*I2).toFixed(1));
+  drawParallel();
+}
+function updateMixto(){
+  const V=gv('mV'),R1=gv('mR1'),R2=gv('mR2'),R3=gv('mR3');
+  const Rpar=1/(1/R2+1/R3),Req=R1+Rpar,It=V/Req,Vpar=It*Rpar;
+  st('mRpar',Rpar.toFixed(2));st('mReq',Req.toFixed(1));st('mIt',It.toFixed(2));
+  st('mVr1',(It*R1).toFixed(2));st('mVpar',Vpar.toFixed(2));st('mPtot',(V*It).toFixed(1));
+  drawMixto();
+}
+function drawBox(ctx,x,y,w,h,label,sub,col){
+  ctx.fillStyle='#1a2235';ctx.strokeStyle=col;ctx.lineWidth=2;
+  ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,6);else ctx.rect(x,y,w,h);
+  ctx.fill();ctx.stroke();
+  ctx.fillStyle=col;ctx.font='bold 11px Space Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(label,x+w/2,y+h/2-(sub?5:0));
+  if(sub){ctx.fillStyle='#7a8ba8';ctx.font='9px Space Mono,monospace';ctx.fillText(sub,x+w/2,y+h/2+8);}
+}
+function drawSerie(){
+  const c=document.getElementById('serieCanvas');if(!c)return;
+  c.width=c.offsetWidth;const W=c.width,H=c.height,ctx=c.getContext('2d');
+  ctx.fillStyle='#131825';ctx.fillRect(0,0,W,H);
+  const V=gv('sV'),R1=gv('sR1'),R2=gv('sR2'),I=V/(R1+R2);
+  const top=H*.2,bot=H*.8,L=W*.08,R=W*.92;
+  ctx.strokeStyle='#00e5ff';ctx.lineWidth=2.5;
+  [[L,top,R,top],[L,bot,R,bot],[L,top,L,bot],[R,top,R,bot]].forEach(([x1,y1,x2,y2])=>{ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();});
+  drawBox(ctx,L-22,(top+bot)/2-22,44,44,V+'V',null,'#ffb700');
+  drawBox(ctx,W*.33-32,top-18,64,36,'R₁='+R1+'Ω','V='+(I*R1).toFixed(1)+'V','#9b5de5');
+  drawBox(ctx,W*.63-32,top-18,64,36,'R₂='+R2+'Ω','V='+(I*R2).toFixed(1)+'V','#00e5ff');
+  ctx.fillStyle='#00ff94';ctx.font='bold 11px Space Mono,monospace';ctx.textAlign='center';ctx.textBaseline='alphabetic';
+  ctx.fillText('I = '+I.toFixed(2)+' A (igual en todo el circuito)',W/2,H-8);
+}
+function drawParallel(){
+  const c=document.getElementById('paralCanvas');if(!c)return;
+  c.width=c.offsetWidth;const W=c.width,H=c.height,ctx=c.getContext('2d');
+  ctx.fillStyle='#131825';ctx.fillRect(0,0,W,H);
+  const V=gv('pV'),R1=gv('pR1'),R2=gv('pR2'),I1=V/R1,I2=V/R2;
+  const top=H*.08,bot=H*.92,L=W*.07,R=W*.93,junL=W*.35,junR=W*.82;
+  ctx.strokeStyle='#00e5ff';ctx.lineWidth=2.5;
+  [[L,top,R,top],[L,bot,R,bot],[L,top,L,bot],[R,top,R,bot],[junL,top,junL,bot],[junR,top,junR,bot]].forEach(([x1,y1,x2,y2])=>{ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();});
+  drawBox(ctx,L-20,(top+bot)/2-20,40,40,V+'V',null,'#ffb700');
+  const rmx=(junL+junR)/2;
+  const r1y=top+(bot-top)*.3,r2y=top+(bot-top)*.7;
+  drawBox(ctx,rmx-38,r1y-16,76,32,'R₁='+R1+'Ω','I₁='+I1.toFixed(2)+'A','#9b5de5');
+  drawBox(ctx,rmx-38,r2y-16,76,32,'R₂='+R2+'Ω','I₂='+I2.toFixed(2)+'A','#00e5ff');
+  ctx.fillStyle='#00ff94';ctx.font='bold 11px Space Mono,monospace';ctx.textAlign='center';ctx.textBaseline='alphabetic';
+  ctx.fillText('IT = '+(I1+I2).toFixed(2)+' A = I₁ + I₂',W/2,H-6);
+}
+function drawMixto(){
+  const c=document.getElementById('mixtoCanvas');if(!c)return;
+  c.width=c.offsetWidth;const W=c.width,H=c.height,ctx=c.getContext('2d');
+  ctx.fillStyle='#131825';ctx.fillRect(0,0,W,H);
+  const V=gv('mV'),R1=gv('mR1'),R2=gv('mR2'),R3=gv('mR3');
+  const Rpar=1/(1/R2+1/R3),Req=R1+Rpar,It=V/Req,Vpar=It*Rpar;
+  const top=H*.08,bot=H*.92,L=W*.06,LR=W*.93,cy=(top+bot)/2;
+  ctx.strokeStyle='#00e5ff';ctx.lineWidth=2.5;
+  [[L,cy,LR,cy],[L,top,L,bot],[LR,top,LR,bot],[L,top,LR,top],[L,bot,LR,bot]].forEach(([x1,y1,x2,y2])=>{ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();});
+  drawBox(ctx,L-20,cy-20,40,40,V+'V',null,'#ffb700');
+  drawBox(ctx,W*.3-32,cy-16,64,32,'R₁='+R1+'Ω',(It*R1).toFixed(1)+'V','#00e5ff');
+  const px=W*.67;
+  ctx.setLineDash([3,3]);ctx.strokeStyle='#3d5270';ctx.lineWidth=1;
+  ctx.beginPath();if(ctx.roundRect)ctx.roundRect(px-44,top+4,88,bot-top-8,8);else ctx.rect(px-44,top+4,88,bot-top-8);
+  ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#3d5270';ctx.font='9px Space Mono,monospace';ctx.textAlign='center';ctx.textBaseline='top';
+  ctx.fillText('PARALELO',px,top+8);
+  const r2y=cy-H*.18,r3y=cy+H*.18;
+  ctx.strokeStyle='#243550';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(px-44,r2y);ctx.lineTo(px+44,r2y);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(px-44,r3y);ctx.lineTo(px+44,r3y);ctx.stroke();
+  drawBox(ctx,px-38,r2y-14,76,28,'R₂='+R2+'Ω',(Vpar/R2).toFixed(2)+'A','#9b5de5');
+  drawBox(ctx,px-38,r3y-14,76,28,'R₃='+R3+'Ω',(Vpar/R3).toFixed(2)+'A','#00ff94');
+  ctx.fillStyle='#00ff94';ctx.font='bold 11px Space Mono,monospace';ctx.textAlign='center';ctx.textBaseline='alphabetic';
+  ctx.fillText('I='+It.toFixed(2)+'A  |  Req='+Req.toFixed(1)+'Ω  |  P='+(-V*It).toFixed(1)+'W'.replace('-',''),W/2,H-6);
+}
+
+// POWER
+function initPower(){
+  ['pwV','pwR','pwT'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('input',()=>{st(id+'val',parseInt(el.value));updatePower();});
+  });
+  updatePower();
+}
+function updatePower(){
+  const V=gv('pwV'),R=gv('pwR'),t=gv('pwT'),I=V/R,P=V*I;
+  st('pwI',I.toFixed(3));st('pwP',P.toFixed(2));st('pwP2',(I*I*R).toFixed(2));st('pwP3',(V*V/R).toFixed(2));
+  st('pwE',Math.round(P*t));st('pwQ',Math.round(I*I*R*t));
+}
+
+// ENERGY
+function initEnergy(){
+  ['appP','appH','appD','appT'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    el.addEventListener('input',()=>{
+      const dec=id==='appH'?1:0;
+      st(id+'val',parseFloat(el.value).toFixed(dec));
+      updateEnergy();
+    });
+  });
+  updateEnergy();
+}
+function updateEnergy(){
+  const P=gv('appP'),H=gv('appH'),D=gv('appD'),T=gv('appT');
+  const Pkw=P/1000,Ed=Pkw*H,Em=Ed*D,cost=Em*T;
+  st('enP',Pkw.toFixed(3));st('enDay',Ed.toFixed(2));st('enMonth',Math.round(Em));
+  st('enCost','$'+Math.round(cost).toLocaleString('es-CL'));
+  st('enJ',fmtSci(Em*3.6e6));
+  const pct=Math.min(100,Em/500*100);
+  const bar=document.getElementById('effBar');if(bar)bar.style.width=pct+'%';
+  st('effPct',Math.round(Em)+' kWh');
+  st('effLabel',Em<100?'Bajo ✓ eficiente':Em<300?'Normal':Em<450?'Alto ⚠':'Muy alto ⛔');
+  drawEnergyChart(Pkw,Ed,D);
+}
+function drawEnergyChart(Pkw,Ed,D){
+  const c=document.getElementById('energyCanvas');if(!c)return;
+  c.width=c.offsetWidth;const W=c.width,H=c.height,ctx=c.getContext('2d');
+  ctx.fillStyle='#131825';ctx.fillRect(0,0,W,H);
+  const data=Array.from({length:D},(_,i)=>Ed*(i+1));
+  const maxV=data[data.length-1]||1,pad={t:20,r:20,b:28,l:52};
+  const gW=W-pad.l-pad.r,gH=H-pad.t-pad.b;
+  for(let i=0;i<=4;i++){
+    const y=pad.t+gH*(1-i/4);
+    ctx.strokeStyle='#1e2d45';ctx.lineWidth=.5;
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+gW,y);ctx.stroke();
+    ctx.fillStyle='#3d5270';ctx.font='9px Space Mono,monospace';ctx.textAlign='right';ctx.textBaseline='middle';
+    ctx.fillText((maxV*i/4).toFixed(0),pad.l-4,y);
+  }
+  const pts=data.map((v,i)=>[pad.l+(i/(D-1||1))*gW,pad.t+gH*(1-v/maxV)]);
+  ctx.beginPath();ctx.moveTo(pad.l,pad.t+gH);pts.forEach(([x,y])=>ctx.lineTo(x,y));
+  ctx.lineTo(pad.l+gW,pad.t+gH);ctx.closePath();
+  const g=ctx.createLinearGradient(0,pad.t,0,pad.t+gH);
+  g.addColorStop(0,'rgba(0,229,255,.25)');g.addColorStop(1,'rgba(0,229,255,0)');
+  ctx.fillStyle=g;ctx.fill();
+  ctx.beginPath();pts.forEach(([x,y],i)=>i===0?ctx.moveTo(x,y):ctx.lineTo(x,y));
+  ctx.strokeStyle='#00e5ff';ctx.lineWidth=2;ctx.shadowColor='#00e5ff';ctx.shadowBlur=5;ctx.stroke();ctx.shadowBlur=0;
+  ctx.fillStyle='#7a8ba8';ctx.font='9px Space Mono,monospace';ctx.textAlign='center';ctx.textBaseline='bottom';
+  ctx.fillText('Energía acumulada (kWh)',pad.l+gW/2,H-1);
+}
+
+// PANEL
+function initPanel(){
+  ['devTV','devMW','devWM','devLT'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    el.addEventListener('input',()=>{st(id+'val',parseInt(el.value));updatePanel();});
+  });
+  updatePanel();
+}
+function updatePanel(){
+  const tv=gv('devTV'),mw=gv('devMW'),wm=gv('devWM'),lt=gv('devLT');
+  const P=tv+mw+wm+lt,I=P/220,pct=I/20*100;
+  st('panelP',P.toFixed(0));st('panelI',I.toFixed(2));st('panelCap',pct.toFixed(1)+'%');
+  const sEl=document.getElementById('panelStatus');
+  if(sEl){sEl.textContent=I>20?'✗ DISPARADO':I>17?'⚠ RIESGO':'✓ OK';sEl.className='result-value '+(I>20?'red':I>17?'amber':'green');}
+  drawPanel(tv,mw,wm,lt,I,20);
+}
+function drawPanel(tv,mw,wm,lt,I,max){
+  const c=document.getElementById('panelCanvas');if(!c)return;
+  c.width=c.offsetWidth;const W=c.width,H=c.height,ctx=c.getContext('2d');
+  ctx.fillStyle='#131825';ctx.fillRect(0,0,W,H);
+  const items=[{l:'TV',v:tv,col:'#00e5ff'},{l:'Microondas',v:mw,col:'#ffb700'},{l:'Lava ropa',v:wm,col:'#9b5de5'},{l:'Luces',v:lt,col:'#00ff94'}];
+  const bw=(W-120)/items.length-12,maxV=Math.max(...items.map(i=>i.v),100),barH=H-50;
+  items.forEach((item,i)=>{
+    const x=50+i*(bw+12),h=(item.v/maxV)*(barH-24),y=barH-h;
+    const g=ctx.createLinearGradient(0,y,0,barH);
+    g.addColorStop(0,item.col);g.addColorStop(1,item.col+'22');
+    ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,bw,h,[4,4,0,0]);else ctx.rect(x,y,bw,h);
+    ctx.fillStyle=g;ctx.fill();
+    ctx.fillStyle=item.col;ctx.font='bold 10px Space Mono,monospace';ctx.textAlign='center';
+    ctx.fillText(item.v+'W',x+bw/2,Math.max(y-5,14));
+    ctx.fillStyle='#7a8ba8';ctx.font='8px Space Mono,monospace';
+    ctx.fillText(item.l,x+bw/2,H-7);
+  });
+  const gx=W-48,gy=H*.45,gr=30,start=Math.PI*.75,end=Math.PI*2.25,pct=Math.min(1,I/max);
+  ctx.strokeStyle='#1e2d45';ctx.lineWidth=7;
+  ctx.beginPath();ctx.arc(gx,gy,gr,start,end);ctx.stroke();
+  const col=pct>.95?'#ff4757':pct>.75?'#ffb700':'#00ff94';
+  ctx.strokeStyle=col;ctx.lineWidth=7;ctx.shadowColor=col;ctx.shadowBlur=12;
+  ctx.beginPath();ctx.arc(gx,gy,gr,start,start+(end-start)*pct);ctx.stroke();ctx.shadowBlur=0;
+  ctx.fillStyle=col;ctx.font='bold 10px Space Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(I.toFixed(1)+'A',gx,gy-2);ctx.font='7px Space Mono,monospace';ctx.fillStyle='#7a8ba8';
+  ctx.fillText('máx 20A',gx,gy+14);
+}
+
+// QUIZ
+let answered={},score=0;
+function answerQ(el,idx,qid){
+  if(answered[qid])return;answered[qid]=true;
+  const block=el.closest('.question-block');
+  const correct=parseInt(block.querySelector('.options').dataset.answer);
+  block.querySelectorAll('.option').forEach((o,i)=>{if(i===correct)o.classList.add('correct');else if(i===idx)o.classList.add('wrong');});
+  if(idx===correct)score++;
+  const exp=document.getElementById(qid+'-exp');if(exp)exp.classList.add('show');
+  updateScore();
+  renderMathInElement(block,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'$$',right:'$$',display:true}],throwOnError:false});
+}
+function updateScore(){
+  const pct=score/8*100;
+  const f=document.getElementById('scoreFill');if(f)f.style.width=pct+'%';
+  st('scoreLabel',score+' / 8 correctas');
+}
+function resetQuiz(){
+  answered={};score=0;
+  document.querySelectorAll('.option').forEach(o=>o.classList.remove('correct','wrong'));
+  document.querySelectorAll('.explanation').forEach(e=>e.classList.remove('show'));
+  updateScore();
+}
+window.addEventListener('resize',()=>{
+  updateCoulomb();updateOhm();updateSerie();updateParallel();updateMixto();updateEnergy();updatePanel();
+});
+</script>
+</body>
+</html>
